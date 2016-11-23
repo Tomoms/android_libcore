@@ -518,6 +518,7 @@ PlainDatagramSocketImpl_peek(JNIEnv *env, jobject this,
     }
     if (IS_NULL(addressObj)) {
         JNU_ThrowNullPointerException(env, "Null address in peek()");
+        return -1;
     }
     if (timeout) {
         int ret = NET_Timeout(fd, timeout);
@@ -1414,7 +1415,7 @@ PlainDatagramSocketImpl_socketSetOption(JNIEnv *env,
         default :
             JNU_ThrowByName(env, JNU_JAVANETPKG "SocketException",
                 "Socket option not supported by PlainDatagramSocketImp");
-            break;
+            return;
 
     }
 
@@ -1639,6 +1640,9 @@ PlainDatagramSocketImpl_setTimeToLive(JNIEnv *env, jobject this,
 #ifdef AF_INET6
 #ifdef __linux__
     setTTL(env, fd, ttl);
+    if ((*env)->ExceptionCheck(env)) {
+        return;
+    }
     if (ipv6_available()) {
         setHopLimit(env, fd, ttl);
     }
@@ -1861,6 +1865,7 @@ static void mcast_join_leave(JNIEnv *env, jobject this,
                     else
                         NET_ThrowCurrent(env, "setsockopt IP_DROP_MEMBERSHIP failed");
                 }
+                return;
             }
         }
 
