@@ -52,9 +52,10 @@ endef
 core_resource_dirs := \
   luni/src/main/java \
   ojluni/src/main/resources/
-test_resource_dirs := $(call all-core-resource-dirs,test)
+test_resource_dirs := $(filter-out ojluni/%,$(call all-core-resource-dirs,test))
 test_src_files := $(call all-test-java-files-under,dalvik dom harmony-tests json luni xml)
 ojtest_src_files := $(call all-test-java-files-under,ojluni)
+ojtest_resource_files := $(filter ojluni/%,$(call all-core-resource-dirs,test))
 
 ifeq ($(EMMA_INSTRUMENT),true)
 ifneq ($(EMMA_INSTRUMENT_STATIC),true)
@@ -156,7 +157,7 @@ ifeq ($(LIBCORE_SKIP_TESTS),)
 # preopted configurations. See b/24535627.
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(openjdk_java_files)
-LOCAL_JAVA_RESOURCE_DIRS := $(core_resource_dirs)
+LOCAL_JAVA_RESOURCE_DIRS := $(ojtest_resource_dirs)
 LOCAL_NO_STANDARD_LIBRARIES := true
 LOCAL_JAVACFLAGS := $(local_javac_flags)
 LOCAL_DX_FLAGS := --core-library
@@ -252,7 +253,7 @@ ifeq ($(LIBCORE_SKIP_TESTS),)
     # Filter out SerializedLambdaTest because it depends on stub classes and won't actually run.
     LOCAL_SRC_FILES := $(filter-out %/DeserializeMethodTest.java %/SerializedLambdaTest.java ojluni/src/test/java/util/stream/boot%,$(ojtest_src_files)) # Do not include anything from the boot* directories. Those directories need a custom bootclasspath to run.
     # Include source code as part of JAR
-    LOCAL_JAVA_RESOURCE_DIRS := ojluni/src/test/dist
+    LOCAL_JAVA_RESOURCE_DIRS := ojluni/src/test/dist $(ojtest_resource_dirs)
     LOCAL_NO_STANDARD_LIBRARIES := true
     LOCAL_JAVA_LIBRARIES := core-oj core-libart core-lambda-stubs okhttp bouncycastle testng
     LOCAL_JAVACFLAGS := $(local_javac_flags)
