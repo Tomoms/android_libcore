@@ -542,7 +542,12 @@ public abstract class Provider extends Properties {
         private ServiceKey(String type, String algorithm, boolean intern) {
             this.type = type;
             this.originalAlgorithm = algorithm;
-            algorithm = algorithm.toUpperCase(ENGLISH);
+            // BEGIN ANDROID-CHANGED
+            // was
+            //  algorithm = algorithm.toUpperCase(ENGLISH);
+            // which cannot be compile-time executed as Locale cannot be initialized.
+            algorithm = algorithm.isEmpty() ? algorithm : algorithm.toUpperCase(ENGLISH);
+            // END ANDROID-CHANGED
             this.algorithm = intern ? algorithm.intern() : algorithm;
         }
         public int hashCode() {
