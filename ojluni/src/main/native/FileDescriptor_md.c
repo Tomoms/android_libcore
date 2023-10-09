@@ -74,8 +74,7 @@ FileDescriptor_getAppend(jint fd) {
     return ((flags & O_APPEND) == 0) ? JNI_FALSE : JNI_TRUE;
 }
 
-
-static JNINativeMethod gMethods[] = {
+static const JNINativeMethod gMethods[] = {
   NATIVE_METHOD(FileDescriptor, sync, "()V"),
   CRITICAL_NATIVE_METHOD(FileDescriptor, isSocket, "(I)Z"),
   CRITICAL_NATIVE_METHOD(FileDescriptor, getAppend, "(I)Z"),
