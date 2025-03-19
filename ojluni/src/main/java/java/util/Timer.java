@@ -114,7 +114,8 @@ public class Timer {
     /** @hide */
     public static boolean skipMultipleMissedPeriodicTasks() {
         return Compatibility.isChangeEnabled(
-            SKIP_MULTIPLE_MISSED_PERIODIC_TASKS);
+            SKIP_MULTIPLE_MISSED_PERIODIC_TASKS)
+            || com.android.libcore.Flags.scheduleAtFixedRateNewBehavior();
     }
 
     /**
@@ -333,6 +334,7 @@ public class Timer {
         sched(task, firstTime.getTime(), -period);
     }
 
+    // Android-changed: document go/scheduleAtFixedRate-behavior-change
     /**
      * Schedules the specified task for repeated <i>fixed-rate execution</i>,
      * beginning after the specified delay.  Subsequent executions take place
@@ -384,6 +386,7 @@ public class Timer {
         sched(task, System.currentTimeMillis()+delay, period);
     }
 
+    // Android-changed: document go/scheduleAtFixedRate-behavior-change
     /**
      * Schedules the specified task for repeated <i>fixed-rate execution</i>,
      * beginning at the specified time. Subsequent executions take place at
@@ -418,6 +421,20 @@ public class Timer {
      * @throws IllegalStateException if task was already scheduled or
      *         cancelled, timer was cancelled, or timer thread terminated.
      * @throws NullPointerException if {@code task} or {@code firstTime} is null
+     *
+     * <p>Since API level 31: If the app is frozen by the Android cached apps
+     * freezer before the fixed rate task is done or canceled, the task may run
+     * many times immediately when the app unfreezes, just as if a single
+     * execution of the command had taken the duration of the frozen period to
+     * execute.
+     *
+     * <p>Since API level 36: If any execution of this task takes longer than
+     * its period, then the subsequent execution will be scheduled for the most
+     * recent missed period.
+     * Additionally, since there may be at most one "catch up" task and never
+     * two or more "catch up" tasks happening in rapid succession, if the
+     * scheduled first time is multiple periods in the past, then only one
+     * "catch up" task will be scheduled for immediate execution.
      */
     public void scheduleAtFixedRate(TimerTask task, Date firstTime,
                                     long period) {
@@ -604,7 +621,7 @@ class TimerThread extends Thread {
                                 long newTime = execTime + p;
                                 if (Timer.skipMultipleMissedPeriodicTasks()
                                         && (newTime < now - p)) {
-                                    newTime = now - ((now - execTime + p) % p);
+                                    newTime = now + ((now - execTime + p) % p);
                                 }
                                 queue.rescheduleMin(newTime);
                             }

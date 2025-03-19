@@ -26,7 +26,7 @@
 
 package java.util.random;
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 @SuppressWarnings({"unchecked", "deprecation", "all"})
 public interface RandomGenerator {
 
@@ -94,7 +94,7 @@ public default double nextGaussian(double mean, double stddev) { throw new Runti
 
 public default double nextExponential() { throw new RuntimeException("Stub!"); }
 @SuppressWarnings({"unchecked", "deprecation", "all"})
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static interface ArbitrarilyJumpableGenerator extends java.util.random.RandomGenerator.LeapableGenerator {
 
 public static java.util.random.RandomGenerator.ArbitrarilyJumpableGenerator of(java.lang.String name) { throw new RuntimeException("Stub!"); }
@@ -117,7 +117,7 @@ public default java.util.random.RandomGenerator.ArbitrarilyJumpableGenerator cop
 }
 
 @SuppressWarnings({"unchecked", "deprecation", "all"})
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static interface JumpableGenerator extends java.util.random.RandomGenerator.StreamableGenerator {
 
 public static java.util.random.RandomGenerator.JumpableGenerator of(java.lang.String name) { throw new RuntimeException("Stub!"); }
@@ -140,7 +140,7 @@ public default java.util.random.RandomGenerator copyAndJump() { throw new Runtim
 }
 
 @SuppressWarnings({"unchecked", "deprecation", "all"})
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static interface LeapableGenerator extends java.util.random.RandomGenerator.JumpableGenerator {
 
 public static java.util.random.RandomGenerator.LeapableGenerator of(java.lang.String name) { throw new RuntimeException("Stub!"); }
@@ -159,7 +159,7 @@ public default java.util.random.RandomGenerator.JumpableGenerator copyAndLeap() 
 }
 
 @SuppressWarnings({"unchecked", "deprecation", "all"})
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static interface SplittableGenerator extends java.util.random.RandomGenerator.StreamableGenerator {
 
 public static java.util.random.RandomGenerator.SplittableGenerator of(java.lang.String name) { throw new RuntimeException("Stub!"); }
@@ -182,7 +182,7 @@ public default java.util.stream.Stream<java.util.random.RandomGenerator> rngs(lo
 }
 
 @SuppressWarnings({"unchecked", "deprecation", "all"})
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static interface StreamableGenerator extends java.util.random.RandomGenerator {
 
 public static java.util.random.RandomGenerator.StreamableGenerator of(java.lang.String name) { throw new RuntimeException("Stub!"); }

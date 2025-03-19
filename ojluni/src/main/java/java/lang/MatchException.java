@@ -75,8 +75,6 @@ package java.lang;
  * @jls 15.28.2 Run-Time Evaluation of {@code switch} Expressions
  *
  * @since 21
- *
- * @hide
  */
 public final class MatchException extends RuntimeException {
     @java.io.Serial
@@ -92,8 +90,6 @@ public final class MatchException extends RuntimeException {
      *         {@link #getCause()} method). (A {@code null} value is
      *         permitted, and indicates that the cause is nonexistent or
      *         unknown.)
-     *
-     * @hide
      */
     public MatchException(String message, Throwable cause) {
         super(message, cause);

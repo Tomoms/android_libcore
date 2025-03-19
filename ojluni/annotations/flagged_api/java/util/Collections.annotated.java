@@ -46,7 +46,7 @@ public static void shuffle(java.util.List<?> list) { throw new RuntimeException(
 
 public static void shuffle(java.util.List<?> list, java.util.Random rnd) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static void shuffle(java.util.List<?> list, java.util.random.RandomGenerator rnd) { throw new RuntimeException("Stub!"); }
 
 public static void swap(java.util.List<?> list, int i, int j) { throw new RuntimeException("Stub!"); }
@@ -73,12 +73,12 @@ public static int lastIndexOfSubList(java.util.List<?> source, java.util.List<?>
 
 public static <T> java.util.Collection<T> unmodifiableCollection(java.util.Collection<? extends T> c) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static <T> java.util.SequencedCollection<T> unmodifiableSequencedCollection(java.util.SequencedCollection<? extends T> c) { throw new RuntimeException("Stub!"); }
 
 public static <T> java.util.Set<T> unmodifiableSet(java.util.Set<? extends T> s) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static <T> java.util.SequencedSet<T> unmodifiableSequencedSet(java.util.SequencedSet<? extends T> s) { throw new RuntimeException("Stub!"); }
 
 public static <T> java.util.SortedSet<T> unmodifiableSortedSet(java.util.SortedSet<T> s) { throw new RuntimeException("Stub!"); }
@@ -89,7 +89,7 @@ public static <T> java.util.List<T> unmodifiableList(java.util.List<? extends T>
 
 public static <K, V> java.util.Map<K,V> unmodifiableMap(java.util.Map<? extends K,? extends V> m) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static <K, V> java.util.SequencedMap<K,V> unmodifiableSequencedMap(java.util.SequencedMap<? extends K,? extends V> m) { throw new RuntimeException("Stub!"); }
 
 public static <K, V> java.util.SortedMap<K,V> unmodifiableSortedMap(java.util.SortedMap<K,? extends V> m) { throw new RuntimeException("Stub!"); }
@@ -175,7 +175,7 @@ public static <T> boolean addAll(java.util.Collection<? super T> c, T... element
 
 public static <E> java.util.Set<E> newSetFromMap(java.util.Map<E,java.lang.Boolean> map) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static <E> java.util.SequencedSet<E> newSequencedSetFromMap(java.util.SequencedMap<E,java.lang.Boolean> map) { throw new RuntimeException("Stub!"); }
 
 public static <T> java.util.Queue<T> asLifoQueue(java.util.Deque<T> deque) { throw new RuntimeException("Stub!"); }

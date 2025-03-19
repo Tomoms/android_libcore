@@ -41,7 +41,7 @@ public E first();
 
 public E last();
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public default java.util.Spliterator<E> spliterator() { throw new RuntimeException("Stub!"); }
 
 public default void addFirst(E e) { throw new RuntimeException("Stub!"); }
@@ -56,7 +56,7 @@ public default E removeFirst() { throw new RuntimeException("Stub!"); }
 
 public default E removeLast() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public default java.util.SortedSet<E> reversed() { throw new RuntimeException("Stub!"); }
 }
 

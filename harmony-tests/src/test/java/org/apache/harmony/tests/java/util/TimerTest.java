@@ -21,6 +21,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Date;
@@ -872,7 +874,7 @@ public class TimerTest {
     @DisableCompatChanges({Timer.SKIP_MULTIPLE_MISSED_PERIODIC_TASKS})
     @Test
     public void test_scheduleAtFixedRateLjava_util_TimerTaskJJ_SkipMultipleMissedFixedRateTasks_oldBehavior() throws Exception {
-        assertFalse(Timer.skipMultipleMissedPeriodicTasks());
+        assumeFalse(Timer.skipMultipleMissedPeriodicTasks());
         Timer t = null;
         final ConcurrentLinkedQueue<Long> executionTimes =
                 new ConcurrentLinkedQueue<>();
@@ -916,7 +918,7 @@ public class TimerTest {
     @EnableCompatChanges({Timer.SKIP_MULTIPLE_MISSED_PERIODIC_TASKS})
     @Test
     public void test_scheduleAtFixedRateLjava_util_TimerTaskJJ_SkipMultipleMissedFixedRateTasks_newBehavior() throws Exception {
-        assertTrue(Timer.skipMultipleMissedPeriodicTasks());
+        assumeTrue(Timer.skipMultipleMissedPeriodicTasks());
         Timer t = null;
         final ConcurrentLinkedQueue<Long> executionTimes =
                 new ConcurrentLinkedQueue<>();

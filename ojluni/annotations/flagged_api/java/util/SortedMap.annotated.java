@@ -51,7 +51,7 @@ public default V putFirst(K k, V v) { throw new RuntimeException("Stub!"); }
 
 public default V putLast(K k, V v) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public default java.util.SortedMap<K,V> reversed() { throw new RuntimeException("Stub!"); }
 }
 

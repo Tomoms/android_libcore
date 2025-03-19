@@ -103,10 +103,10 @@ public K firstKey() { throw new RuntimeException("Stub!"); }
 
 public K lastKey() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public V putFirst(K k, V v) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public V putLast(K k, V v) { throw new RuntimeException("Stub!"); }
 
 public java.util.concurrent.ConcurrentNavigableMap<K,V> subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive) { throw new RuntimeException("Stub!"); }

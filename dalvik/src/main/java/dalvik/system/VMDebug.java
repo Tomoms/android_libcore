@@ -23,9 +23,11 @@ import android.annotation.UserIdInt;
 import android.compat.annotation.UnsupportedAppUsage;
 
 import libcore.util.NonNull;
+import libcore.util.Nullable;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -400,6 +402,76 @@ public final class VMDebug {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public static native void resetAllocCount(int kinds);
+
+    /**
+     * Represents the location of a java method within a process'
+     * memory.
+     *
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static class ExecutableMethodFileOffsets {
+        private final @NonNull String mContainerPath;
+        private final long mContainerOffset;
+        private final long mMethodOffset;
+
+        private ExecutableMethodFileOffsets(
+                @NonNull String containerPath, long containerOffset, long methodOffset) {
+            this.mContainerPath = containerPath;
+            this.mContainerOffset = containerOffset;
+            this.mMethodOffset = methodOffset;
+        }
+
+        /**
+         * The OS path of the containing file (could be virtual).
+         *
+         * @hide
+         */
+        @SystemApi(client = MODULE_LIBRARIES)
+        public @NonNull String getContainerPath() {
+            return mContainerPath;
+        }
+
+        /**
+         * The offset of the containing file within the process' memory.
+         *
+         * @hide
+         */
+        @SystemApi(client = MODULE_LIBRARIES)
+        public long getContainerOffset() {
+            return mContainerOffset;
+        }
+
+        /**
+         * The offset of the method within the containing file.
+         *
+         * @hide
+         */
+        @SystemApi(client = MODULE_LIBRARIES)
+        public long getMethodOffset() {
+            return mMethodOffset;
+        }
+    }
+
+    private static native @Nullable ExecutableMethodFileOffsets
+        getExecutableMethodFileOffsetsNative(Method javaMethod);
+
+    /**
+     * Fetches offset information about the location of the native executable code within the
+     * running process' memory.
+     *
+     * @param javaMethod method for which info is to be identified.
+     * @return {@link ExecutableMethodFileOffsets} containing offset information for the specified
+     *         method, or null if the method is not AOT compiled.
+     * @throws RuntimeException for unexpected failures in ART retrieval of info.
+     *
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static @Nullable ExecutableMethodFileOffsets getExecutableMethodFileOffsets(
+            @NonNull Method javaMethod) {
+        return getExecutableMethodFileOffsetsNative(javaMethod);
+    }
 
     /**
      * This method exists for binary compatibility.  It was part of
@@ -783,6 +855,11 @@ public final class VMDebug {
     /**
      * Start an ART trace of executed dex methods. This uses a circular buffer to store entries
      * so it will only hold the most recently executed ones. The tracing is not precise.
+     * If a low overhead tracing is already in progress then this request is ignored but an error
+     * will be logged. The ongoing trace will not be impacted. For example, if there are two calls
+     * to {@link #startLowOverheadTrace} without a {@link #stopLowOverheadTrace} in between, the
+     * second request is ignored after logging an error. The first one will continue to trace until
+     * the next {@link #stopLowOverheadTrace} call.
      *
      * @hide
      */
@@ -792,7 +869,8 @@ public final class VMDebug {
     }
 
     /**
-     * Stop an ongoing ART trace of executed dex methods.
+     * Stop an ongoing ART trace of executed dex methods. If there is no ongoing trace then this
+     * request is ignored and an error will be logged.
      *
      * @hide
      */
@@ -803,6 +881,13 @@ public final class VMDebug {
 
     /**
      * Dump the collected trace into the trace file provided.
+     *
+     * The trace destination can be a file descriptor or a file name. If the file name or the file
+     * descriptor aren't valid we log an error and ignore the request. When a filename is provided
+     * and a file already exists this method unlinks the file and creates a new file for writing.
+     * This method unlinks instead of overwriting to prevent any problems if there are other uses
+     * of the file. If the file does not exist then a new file is created. If for any reason the
+     * file cannot be created then this method logs an error and the method returns.
      *
      * @hide
      */

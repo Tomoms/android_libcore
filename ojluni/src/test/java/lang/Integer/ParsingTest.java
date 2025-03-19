@@ -37,10 +37,6 @@ import java.lang.RuntimeException;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
-import java.lang.invoke.WrongMethodTypeException;
-
-import org.testng.annotations.Test;
-import org.testng.Assert;
 
 /**
  * There are seven methods in java.lang.Integer which transform strings
@@ -62,8 +58,7 @@ import org.testng.Assert;
 
 public class ParsingTest {
 
-    @Test
-    public void main() {
+    public static void main(String... argv) {
         check(+100, "+100");
         check(-100, "-100");
 

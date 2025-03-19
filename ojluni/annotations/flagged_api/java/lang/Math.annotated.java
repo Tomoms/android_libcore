@@ -90,22 +90,22 @@ public static long multiplyExact(long x, int y) { throw new RuntimeException("St
 
 public static long multiplyExact(long x, long y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static int divideExact(int x, int y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static long divideExact(long x, long y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static int floorDivExact(int x, int y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static long floorDivExact(long x, long y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static int ceilDivExact(int x, int y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static long ceilDivExact(long x, long y) { throw new RuntimeException("Stub!"); }
 
 public static int incrementExact(int a) { throw new RuntimeException("Stub!"); }
@@ -126,7 +126,7 @@ public static long multiplyFull(int x, int y) { throw new RuntimeException("Stub
 
 public static long multiplyHigh(long x, long y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static long unsignedMultiplyHigh(long x, long y) { throw new RuntimeException("Stub!"); }
 
 public static int floorDiv(int x, int y) { throw new RuntimeException("Stub!"); }
@@ -141,22 +141,22 @@ public static int floorMod(long x, int y) { throw new RuntimeException("Stub!");
 
 public static long floorMod(long x, long y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static int ceilDiv(int x, int y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static long ceilDiv(long x, int y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static long ceilDiv(long x, long y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static int ceilMod(int x, int y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static int ceilMod(long x, int y) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static long ceilMod(long x, long y) { throw new RuntimeException("Stub!"); }
 
 public static int abs(int a) { throw new RuntimeException("Stub!"); }
@@ -187,16 +187,16 @@ public static float min(float a, float b) { throw new RuntimeException("Stub!");
 
 public static double min(double a, double b) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static int clamp(long value, int min, int max) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static long clamp(long value, long min, long max) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static double clamp(double value, double min, double max) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static float clamp(float value, float min, float max) { throw new RuntimeException("Stub!"); }
 
 public static double fma(double a, double b, double c) { throw new RuntimeException("Stub!"); }
@@ -251,7 +251,7 @@ public static final double E = 2.718281828459045;
 
 public static final double PI = 3.141592653589793;
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static final double TAU = 6.283185307179586;
 }
 

@@ -87,10 +87,10 @@ public E pollFirst() { throw new RuntimeException("Stub!"); }
 
 public E pollLast() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public void addFirst(E e) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public void addLast(E e) { throw new RuntimeException("Stub!"); }
 
 public java.lang.Object clone() { throw new RuntimeException("Stub!"); }

@@ -25,5 +25,10 @@ package java.lang.invoke {
     method public String getInstantiatedMethodType();
   }
 
+  @FlaggedApi("com.android.libcore.openjdk21_stringconcat") public final class StringConcatFactory {
+    method @FlaggedApi("com.android.libcore.openjdk21_stringconcat") public static java.lang.invoke.CallSite makeConcat(java.lang.invoke.MethodHandles.Lookup, String, java.lang.invoke.MethodType) throws java.lang.invoke.StringConcatException;
+    method @FlaggedApi("com.android.libcore.openjdk21_stringconcat") public static java.lang.invoke.CallSite makeConcatWithConstants(java.lang.invoke.MethodHandles.Lookup, String, java.lang.invoke.MethodType, String, java.lang.Object...) throws java.lang.invoke.StringConcatException;
+  }
+
 }
 

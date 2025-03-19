@@ -66,10 +66,10 @@ public long nextLong(long origin, long bound) { throw new RuntimeException("Stub
 
 public float nextFloat() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi("com.android.libcore.v_apis")
+
 public float nextFloat(float bound) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi("com.android.libcore.v_apis")
+
 public float nextFloat(float origin, float bound) { throw new RuntimeException("Stub!"); }
 
 public double nextDouble() { throw new RuntimeException("Stub!"); }

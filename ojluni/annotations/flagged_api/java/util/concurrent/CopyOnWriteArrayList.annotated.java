@@ -66,10 +66,10 @@ public <T> T[] toArray(T[] a) { throw new RuntimeException("Stub!"); }
 
 public E get(int index) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public E getFirst() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public E getLast() { throw new RuntimeException("Stub!"); }
 
 public E set(int index, E element) { throw new RuntimeException("Stub!"); }
@@ -78,18 +78,18 @@ public boolean add(E e) { throw new RuntimeException("Stub!"); }
 
 public void add(int index, E element) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public void addFirst(E e) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public void addLast(E e) { throw new RuntimeException("Stub!"); }
 
 public E remove(int index) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public E removeFirst() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public E removeLast() { throw new RuntimeException("Stub!"); }
 
 public boolean remove(java.lang.Object o) { throw new RuntimeException("Stub!"); }
@@ -134,7 +134,7 @@ public java.util.Spliterator<E> spliterator() { throw new RuntimeException("Stub
 
 public java.util.List<E> subList(int fromIndex, int toIndex) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public java.util.List<E> reversed() { throw new RuntimeException("Stub!"); }
 }
 

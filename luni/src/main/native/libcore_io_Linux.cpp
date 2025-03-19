@@ -1431,15 +1431,15 @@ static jobjectArray Linux_android_getaddrinfo(JNIEnv* env, jobject, jstring java
     return result;
 }
 
-static jint Linux_getegid(JNIEnv*, jobject) {
+static jint Linux_nativeGetegid() {
     return getegid();
 }
 
-static jint Linux_geteuid(JNIEnv*, jobject) {
+static jint Linux_nativeGeteuid() {
     return geteuid();
 }
 
-static jint Linux_getgid(JNIEnv*, jobject) {
+static jint Linux_nativeGetgid() {
     return getgid();
 }
 
@@ -1475,11 +1475,11 @@ static jint Linux_getpgid(JNIEnv* env, jobject, jint pid) {
     return throwIfMinusOne(env, "getpgid", TEMP_FAILURE_RETRY(getpgid(pid)));
 }
 
-static jint Linux_getpid(JNIEnv*, jobject) {
+static jint Linux_nativeGetpid() {
     return TEMP_FAILURE_RETRY(getpid());
 }
 
-static jint Linux_getppid(JNIEnv*, jobject) {
+static jint Linux_nativeGetppid() {
     return TEMP_FAILURE_RETRY(getppid());
 }
 
@@ -1592,7 +1592,7 @@ static jobject Linux_getsockoptUcred(JNIEnv* env, jobject, jobject javaFd, jint 
   return makeStructUcred(env, u);
 }
 
-static jint Linux_gettid(JNIEnv* env __unused, jobject) {
+static jint Linux_nativeGettid() {
 #if defined(__BIONIC__)
   return TEMP_FAILURE_RETRY(gettid());
 #else
@@ -1600,7 +1600,7 @@ static jint Linux_gettid(JNIEnv* env __unused, jobject) {
 #endif
 }
 
-static jint Linux_getuid(JNIEnv*, jobject) {
+static jint Linux_nativeGetuid() {
     return getuid();
 }
 
@@ -2795,15 +2795,15 @@ static const JNINativeMethod gMethods[] = {
     NATIVE_METHOD(Linux, fsync, "(Ljava/io/FileDescriptor;)V"),
     NATIVE_METHOD(Linux, ftruncate, "(Ljava/io/FileDescriptor;J)V"),
     NATIVE_METHOD(Linux, gai_strerror, "(I)Ljava/lang/String;"),
-    NATIVE_METHOD(Linux, getegid, "()I"),
-    NATIVE_METHOD(Linux, geteuid, "()I"),
-    NATIVE_METHOD(Linux, getgid, "()I"),
+    CRITICAL_NATIVE_METHOD(Linux, nativeGetegid, "()I"),
+    CRITICAL_NATIVE_METHOD(Linux, nativeGeteuid, "()I"),
+    CRITICAL_NATIVE_METHOD(Linux, nativeGetgid, "()I"),
     NATIVE_METHOD(Linux, getenv, "(Ljava/lang/String;)Ljava/lang/String;"),
     NATIVE_METHOD(Linux, getnameinfo, "(Ljava/net/InetAddress;I)Ljava/lang/String;"),
     NATIVE_METHOD(Linux, getpeername, "(Ljava/io/FileDescriptor;)Ljava/net/SocketAddress;"),
     NATIVE_METHOD(Linux, getpgid, "(I)I"),
-    NATIVE_METHOD(Linux, getpid, "()I"),
-    NATIVE_METHOD(Linux, getppid, "()I"),
+    CRITICAL_NATIVE_METHOD(Linux, nativeGetpid, "()I"),
+    CRITICAL_NATIVE_METHOD(Linux, nativeGetppid, "()I"),
     NATIVE_METHOD(Linux, getpwnam, "(Ljava/lang/String;)Landroid/system/StructPasswd;"),
     NATIVE_METHOD(Linux, getpwuid, "(I)Landroid/system/StructPasswd;"),
     NATIVE_METHOD(Linux, getrlimit, "(I)Landroid/system/StructRlimit;"),
@@ -2814,8 +2814,8 @@ static const JNINativeMethod gMethods[] = {
     NATIVE_METHOD(Linux, getsockoptLinger, "(Ljava/io/FileDescriptor;II)Landroid/system/StructLinger;"),
     NATIVE_METHOD(Linux, getsockoptTimeval, "(Ljava/io/FileDescriptor;II)Landroid/system/StructTimeval;"),
     NATIVE_METHOD(Linux, getsockoptUcred, "(Ljava/io/FileDescriptor;II)Landroid/system/StructUcred;"),
-    NATIVE_METHOD(Linux, gettid, "()I"),
-    NATIVE_METHOD(Linux, getuid, "()I"),
+    CRITICAL_NATIVE_METHOD(Linux, nativeGettid, "()I"),
+    CRITICAL_NATIVE_METHOD(Linux, nativeGetuid, "()I"),
     NATIVE_METHOD(Linux, getxattr, "(Ljava/lang/String;Ljava/lang/String;)[B"),
     NATIVE_METHOD(Linux, getifaddrs, "()[Landroid/system/StructIfaddrs;"),
     NATIVE_METHOD(Linux, if_indextoname, "(I)Ljava/lang/String;"),

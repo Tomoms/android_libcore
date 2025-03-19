@@ -16,7 +16,12 @@
 
 package libcore.java.lang;
 
+import android.icu.text.UnicodeSet;
+import android.icu.text.UnicodeSetIterator;
+
 import java.lang.reflect.Method;
+import java.util.Locale;
+import java.util.function.IntPredicate;
 
 public class CharacterTest extends junit.framework.TestCase {
   public void test_valueOfC() {
@@ -296,5 +301,60 @@ public class CharacterTest extends junit.framework.TestCase {
 
   public void testBYTES() {
     assertEquals(2, Character.BYTES);
+  }
+
+  public void testIsEmoji() {
+    assertTrue(Character.isEmoji(0x1F600)); // grinning face
+    assertFalse(Character.isEmoji('a'));
+    assertUnicodeSetPositiveTest("[:Emoji=Yes:]", Character::isEmoji);
+  }
+
+  public void testIsEmojiPresentation() {
+    assertTrue(Character.isEmojiPresentation(0x1F600)); // grinning face
+    assertFalse(Character.isEmojiPresentation('a'));
+    assertUnicodeSetPositiveTest("[:Emoji_Presentation=Yes:]", Character::isEmojiPresentation);
+  }
+
+  public void testIsEmojiModifier() {
+    assertTrue(Character.isEmojiModifier(0x1F3FB)); // skin tone modifier
+    assertFalse(Character.isEmojiModifier('a'));
+      assertUnicodeSetPositiveTest("[:Emoji_Modifier=Yes:]", Character::isEmojiModifier);
+  }
+
+  public void testIsEmojiModifierBase() {
+    assertTrue(Character.isEmojiModifierBase(0x1F466)); // boy
+    assertFalse(Character.isEmojiModifierBase('a'));
+    assertUnicodeSetPositiveTest("[:Emoji_Modifier_Base=Yes:]", Character::isEmojiModifierBase);
+  }
+
+  public void testIsEmojiComponent() {
+    assertTrue(Character.isEmojiComponent(0x1F9B0)); // emoji component red hair
+    assertFalse(Character.isEmojiComponent('a'));
+    assertUnicodeSetPositiveTest("[:Emoji_Component=Yes:]", Character::isEmojiComponent);
+  }
+
+  public void testIsExtendedPictographic() {
+    assertTrue(Character.isExtendedPictographic(0x1F32D)); // hot dog
+    assertFalse(Character.isExtendedPictographic('a'));
+    assertUnicodeSetPositiveTest("[:Extended_Pictographic=Yes:]",
+            Character::isExtendedPictographic);
+  }
+
+    /**
+     * Cross-checking against ICU4J UnicodeSet APIs.
+     */
+  private static void assertUnicodeSetPositiveTest(String unicodeSetPattern,
+          IntPredicate test) {
+      UnicodeSet unicodeSet = new UnicodeSet(unicodeSetPattern);
+      assertTrue(unicodeSet.size() >= 1);
+      for (UnicodeSetIterator it = new UnicodeSetIterator(unicodeSet); it.next();) {
+          // Assume that unicodeSetPattern doesn't specify strings.
+          assertNotSame(it.codepoint, UnicodeSetIterator.IS_STRING);
+          for (int cp = it.codepoint; cp <= it.codepointEnd; cp++) {
+              if (!test.test(cp)) {
+                  fail(String.format(Locale.US, "code point: %08X", cp));
+              }
+          }
+      }
   }
 }

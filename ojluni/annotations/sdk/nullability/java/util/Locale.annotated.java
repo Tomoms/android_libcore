@@ -66,11 +66,19 @@ public static synchronized void setDefault(@libcore.util.NonNull java.util.Local
 
 public static java.util.@libcore.util.NonNull Locale @libcore.util.NonNull [] getAvailableLocales() { throw new RuntimeException("Stub!"); }
 
+public static @libcore.util.NonNull java.util.Stream<@libcore.util.NonNull java.util.Locale> availableLocales() { throw new RuntimeException("Stub!"); }
+
 public static java.lang.@libcore.util.NonNull String @libcore.util.NonNull [] getISOCountries() { throw new RuntimeException("Stub!"); }
 
 @libcore.util.NonNull public static java.util.Set<java.lang.@libcore.util.NonNull String> getISOCountries(@libcore.util.NonNull java.util.Locale.IsoCountryCode type) { throw new RuntimeException("Stub!"); }
 
 public static java.lang.@libcore.util.NonNull String @libcore.util.NonNull [] getISOLanguages() { throw new RuntimeException("Stub!"); }
+
+public static @libcore.util.NonNull java.util.Locale of(@libcore.util.NonNull java.lang.String language) { throw new RuntimeException("Stub!"); }
+
+public static @libcore.util.NonNull java.util.Locale of(@libcore.util.NonNull java.lang.String language, @libcore.util.NonNull java.lang.String country) { throw new RuntimeException("Stub!"); }
+
+public static @libcore.util.NonNull java.util.Locale of(@libcore.util.NonNull java.lang.String language, @libcore.util.NonNull java.lang.String country, @libcore.util.NonNull java.lang.String variant) { throw new RuntimeException("Stub!"); }
 
 @libcore.util.NonNull public java.lang.String getLanguage() { throw new RuntimeException("Stub!"); }
 

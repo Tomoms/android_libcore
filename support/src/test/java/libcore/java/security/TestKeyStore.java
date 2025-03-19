@@ -22,6 +22,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.math.BigInteger;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
@@ -156,7 +158,7 @@ public final class TestKeyStore {
     }
 
     private static final byte[] LOCAL_HOST_ADDRESS = { 127, 0, 0, 1 };
-    private static final String LOCAL_HOST_NAME = "localhost";
+    private static final String LOCAL_HOST_NAME = getLocalHostName();
 
     public final KeyStore keyStore;
     public final char[] storePassword;
@@ -267,6 +269,17 @@ public final class TestKeyStore {
                 .rootCa(rootCa2.getRootCertificate("RSA"))
                 .build();
         CLIENT_2 = new TestKeyStore(createClient(rootCa2.keyStore), null, null);
+    }
+
+    /**
+     * Return the actual host name of the local host.
+     */
+    private static String getLocalHostName() {
+        try {
+            return InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            return "localhost";
+        }
     }
 
     /**

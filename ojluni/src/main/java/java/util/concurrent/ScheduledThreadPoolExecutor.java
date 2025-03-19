@@ -161,7 +161,8 @@ public class ScheduledThreadPoolExecutor
     /** @hide */
     public static boolean skipMultipleMissedPeriodicTasks() {
         return Compatibility.isChangeEnabled(
-            STPE_SKIP_MULTIPLE_MISSED_PERIODIC_TASKS);
+            STPE_SKIP_MULTIPLE_MISSED_PERIODIC_TASKS)
+            || com.android.libcore.Flags.scheduleAtFixedRateNewBehavior();
     }
 
     /*
@@ -627,6 +628,7 @@ public class ScheduledThreadPoolExecutor
         return t;
     }
 
+    // Android-changed: document go/scheduleAtFixedRate-behavior-change
     /**
      * Submits a periodic action that becomes enabled first after the
      * given initial delay, and subsequently with the given period;

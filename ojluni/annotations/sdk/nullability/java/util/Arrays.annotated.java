@@ -201,7 +201,7 @@ public static boolean equals(float @libcore.util.NonNull [] a, int aFromIndex, i
 
 public static boolean equals(java.lang.@libcore.util.Nullable Object @libcore.util.Nullable [] a, java.lang.@libcore.util.Nullable Object @libcore.util.Nullable [] a2) { throw new RuntimeException("Stub!"); }
 
-public static boolean equals(java.lang.@libcore.util.Nullable java.lang.Object @libcore.util.NonNull [] a, int aFromIndex, int aToIndex, java.lang.@libcore.util.Nullable java.lang.Object @libcore.util.NonNull[] b, int bFromIndex, int bToIndex) { throw new RuntimeException("Stub!"); }
+public static boolean equals(java.lang.@libcore.util.Nullable Object @libcore.util.NonNull [] a, int aFromIndex, int aToIndex, java.lang.@libcore.util.Nullable Object @libcore.util.NonNull[] b, int bFromIndex, int bToIndex) { throw new RuntimeException("Stub!"); }
 
 public static <T> boolean equals(T @libcore.util.Nullable[] a, T @libcore.util.Nullable [] a2, @libcore.util.NonNull java.util.Comparator<? super T> cmp) { throw new RuntimeException("Stub!"); }
 

@@ -30,7 +30,7 @@ package java.security.spec;
 public class PKCS8EncodedKeySpec extends java.security.spec.EncodedKeySpec {
 
 public PKCS8EncodedKeySpec(byte[] encodedKey) { super((byte[])null); throw new RuntimeException("Stub!"); }
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public PKCS8EncodedKeySpec(byte[] encodedKey, java.lang.String algorithm) { super((byte[])null); throw new RuntimeException("Stub!"); }
 
 public byte[] getEncoded() { throw new RuntimeException("Stub!"); }

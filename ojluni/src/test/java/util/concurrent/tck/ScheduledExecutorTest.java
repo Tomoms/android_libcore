@@ -46,6 +46,8 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 
 import android.platform.test.annotations.LargeTest;
 
@@ -247,8 +249,7 @@ public class ScheduledExecutorTest extends JSR166TestCase {
     @Test
     public void testFixedRateSequenceSkipMultipleMissedFixedRateTasksEnabled()
             throws InterruptedException {
-        assertTrue(
-           ScheduledThreadPoolExecutor.skipMultipleMissedPeriodicTasks());
+        assumeTrue(ScheduledThreadPoolExecutor.skipMultipleMissedPeriodicTasks());
 
         final ScheduledThreadPoolExecutor p = new ScheduledThreadPoolExecutor(1);
         final ConcurrentLinkedQueue<Long> executionTimes =
@@ -301,8 +302,7 @@ public class ScheduledExecutorTest extends JSR166TestCase {
     @Test
     public void testFixedRateSequenceSkipMultipleMissedFixedRateTasksDisabled()
             throws InterruptedException {
-        assertFalse(
-           ScheduledThreadPoolExecutor.skipMultipleMissedPeriodicTasks());
+        assumeFalse(ScheduledThreadPoolExecutor.skipMultipleMissedPeriodicTasks());
 
         final ScheduledThreadPoolExecutor p = new ScheduledThreadPoolExecutor(1);
         final ConcurrentLinkedQueue<Long> executionTimes =

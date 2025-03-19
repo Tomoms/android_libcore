@@ -31,14 +31,14 @@ public class RSAPublicKeySpec implements java.security.spec.KeySpec {
 
 public RSAPublicKeySpec(java.math.BigInteger modulus, java.math.BigInteger publicExponent) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public RSAPublicKeySpec(java.math.BigInteger modulus, java.math.BigInteger publicExponent, java.security.spec.AlgorithmParameterSpec params) { throw new RuntimeException("Stub!"); }
 
 public java.math.BigInteger getModulus() { throw new RuntimeException("Stub!"); }
 
 public java.math.BigInteger getPublicExponent() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public java.security.spec.AlgorithmParameterSpec getParams() { throw new RuntimeException("Stub!"); }
 }
 

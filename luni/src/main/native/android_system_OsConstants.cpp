@@ -458,6 +458,7 @@ static void OsConstants_initConstants(JNIEnv* env, jclass c) {
     initConstant(env, c, "PROT_WRITE", PROT_WRITE);
     initConstant(env, c, "R_OK", R_OK);
     initConstant(env, c, "RLIMIT_NOFILE", RLIMIT_NOFILE);
+    initConstant(env, c, "RLIMIT_RTPRIO", RLIMIT_RTPRIO);
 // NOTE: The RT_* constants are not preprocessor defines, they're enum
 // members. The best we can do (barring UAPI / kernel version checks) is
 // to hope they exist on all host linuxes we're building on. These

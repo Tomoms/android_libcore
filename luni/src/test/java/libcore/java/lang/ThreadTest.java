@@ -18,6 +18,7 @@ package libcore.java.lang;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -32,6 +33,7 @@ import java.nio.ByteBuffer;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -527,6 +529,42 @@ public final class ThreadTest {
             thread.join();
         } catch (InterruptedException ignored) {
         }
+    }
+
+    @Test
+    public void testGetId() throws InterruptedException {
+        AtomicLong atid1 = new AtomicLong();
+        Thread t1 = new Thread(() -> {
+            atid1.set(Thread.currentThread().getId());
+        });
+        long tid1 = t1.getId();
+        t1.start();
+        t1.join();
+        assertEquals(atid1.get(), tid1);
+
+        Thread t2 = new Thread();
+        assertNotEquals(t1.getId(), t2.getId());
+    }
+    @Test
+    public void testThreadId() throws InterruptedException {
+        AtomicLong atid1 = new AtomicLong();
+        Thread t1 = new Thread(() -> {
+            atid1.set(Thread.currentThread().threadId());
+        });
+        long tid1 = t1.threadId();
+        assertEquals(tid1, t1.getId());
+        t1.start();
+        t1.join();
+        assertEquals(atid1.get(), tid1);
+
+        Thread t2 = new Thread();
+        assertNotEquals(t1.threadId(), t2.threadId());
+    }
+
+    @Test
+    public void testIsVirtual() {
+        Thread t1 = new Thread();
+        assertFalse(t1.isVirtual());
     }
 
     /**

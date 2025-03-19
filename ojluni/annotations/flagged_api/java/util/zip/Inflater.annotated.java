@@ -38,14 +38,14 @@ public void setInput(byte[] input, int off, int len) { throw new RuntimeExceptio
 
 public void setInput(byte[] input) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi("com.android.libcore.v_apis")
+
 public void setInput(java.nio.ByteBuffer input) { throw new RuntimeException("Stub!"); }
 
 public void setDictionary(byte[] dictionary, int off, int len) { throw new RuntimeException("Stub!"); }
 
 public void setDictionary(byte[] dictionary) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi("com.android.libcore.v_apis")
+
 public void setDictionary(java.nio.ByteBuffer dictionary) { throw new RuntimeException("Stub!"); }
 
 public int getRemaining() { throw new RuntimeException("Stub!"); }
@@ -60,7 +60,7 @@ public int inflate(byte[] output, int off, int len) throws java.util.zip.DataFor
 
 public int inflate(byte[] output) throws java.util.zip.DataFormatException { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi("com.android.libcore.v_apis")
+
 public int inflate(java.nio.ByteBuffer output) throws java.util.zip.DataFormatException { throw new RuntimeException("Stub!"); }
 
 public int getAdler() { throw new RuntimeException("Stub!"); }

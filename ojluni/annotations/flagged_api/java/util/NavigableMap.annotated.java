@@ -81,7 +81,7 @@ public java.util.SortedMap<K,V> headMap(K toKey);
 
 public java.util.SortedMap<K,V> tailMap(K fromKey);
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public default java.util.NavigableMap<K,V> reversed() { throw new RuntimeException("Stub!"); }
 }
 

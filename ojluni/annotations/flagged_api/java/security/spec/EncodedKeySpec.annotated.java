@@ -31,10 +31,10 @@ public abstract class EncodedKeySpec implements java.security.spec.KeySpec {
 
 public EncodedKeySpec(byte[] encodedKey) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 protected EncodedKeySpec(byte[] encodedKey, java.lang.String algorithm) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public java.lang.String getAlgorithm() { throw new RuntimeException("Stub!"); }
 
 public byte[] getEncoded() { throw new RuntimeException("Stub!"); }

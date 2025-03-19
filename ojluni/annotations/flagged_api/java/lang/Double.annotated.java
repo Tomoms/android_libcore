@@ -109,7 +109,7 @@ public static final double NaN = (0.0/0.0);
 
 public static final double POSITIVE_INFINITY = (1.0/0.0);
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static final int PRECISION = 53; // 0x35
 
 public static final int SIZE = 64; // 0x40

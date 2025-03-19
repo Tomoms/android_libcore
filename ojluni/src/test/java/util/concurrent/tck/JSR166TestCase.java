@@ -301,6 +301,8 @@ import org.junit.runners.Suite.SuiteClasses;
     DoubleAccumulatorTest.class,
     DoubleAdderTest.class,
     ForkJoinPool8Test.class,
+    ForkJoinPool19Test.class,
+    ForkJoinPool20Test.class,
     ForkJoinTask8Test.class,
     LinkedBlockingDeque8Test.class,
     LinkedBlockingQueue8Test.class,
@@ -2334,4 +2336,17 @@ public class JSR166TestCase {
     static <T> void shuffle(T[] array) {
         Collections.shuffle(Arrays.asList(array), ThreadLocalRandom.current());
     }
+
+    /**
+     * Returns the same String as would be returned by {@link
+     * Object#toString}, whether or not the given object's class
+     * overrides toString().
+     *
+     * @see System#identityHashCode
+     */
+    static String identityString(Object x) {
+        return x.getClass().getName()
+            + "@" + Integer.toHexString(System.identityHashCode(x));
+    }
+
 }

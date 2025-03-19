@@ -85,7 +85,7 @@ public void replaceAll(java.util.function.BiFunction<? super K,? super V,? exten
 
 public java.lang.Object clone() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static <K, V> java.util.HashMap<K,V> newHashMap(int numMappings) { throw new RuntimeException("Stub!"); }
 }
 

@@ -93,7 +93,7 @@ public final native java.lang.Object getAndBitwiseXorAcquire(java.lang.Object...
 
 public final native java.lang.Object getAndBitwiseXorRelease(java.lang.Object... args);
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public final java.lang.String toString() { throw new RuntimeException("Stub!"); }
 
 public final java.lang.Class<?> varType() { throw new RuntimeException("Stub!"); }

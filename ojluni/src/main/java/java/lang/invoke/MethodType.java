@@ -1285,8 +1285,8 @@ s.writeObject(this.parameterArray());
         // store them into the implementation-specific final fields.
         checkRtype(rtype);
         checkPtypes(ptypes);
-        UNSAFE.putObject(this, rtypeOffset, rtype);
-        UNSAFE.putObject(this, ptypesOffset, ptypes);
+        UNSAFE.putReference(this, rtypeOffset, rtype);
+        UNSAFE.putReference(this, ptypesOffset, ptypes);
     }
 
     // Support for resetting final fields while deserializing

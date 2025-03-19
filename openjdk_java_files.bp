@@ -271,6 +271,7 @@ filegroup {
         "ojluni/src/main/java/java/lang/invoke/MethodType.java",
         "ojluni/src/main/java/java/lang/invoke/MethodTypeForm.java",
         "ojluni/src/main/java/java/lang/invoke/MutableCallSite.java",
+        "ojluni/src/main/java/java/lang/invoke/StringConcatException.java",
         "ojluni/src/main/java/java/lang/invoke/Transformers.java",
         "ojluni/src/main/java/java/lang/invoke/TypeDescriptor.java",
         "ojluni/src/main/java/java/lang/invoke/VarHandle.java",
@@ -1430,8 +1431,8 @@ filegroup {
     path: "ojluni/src/main/java",
 }
 
-// Stubs needed to satisfy javac's dependencies when compiling lambda code. These are
-// not used on Android devices or required by the Jack compiler.
+// Stubs needed to satisfy javac's dependencies when compiling lambda code or code with
+// indified string concatenation. These are not used on Android devices.
 //
 // On aosp/master:
 // openjdk_lambda_stub_files : These are included in core-oj as stubs
@@ -1448,6 +1449,7 @@ filegroup {
     srcs: [
         "ojluni/src/lambda/java/java/lang/invoke/LambdaMetafactory.java",
         "ojluni/src/lambda/java/java/lang/invoke/SerializedLambda.java",
+        "ojluni/src/lambda/java/java/lang/invoke/StringConcatFactory.java",
     ],
 }
 
@@ -1460,6 +1462,8 @@ filegroup {
         "ojluni/src/lambda/java/java/lang/invoke/LambdaConversionException.java",
         "ojluni/src/lambda/java/java/lang/invoke/MethodHandle.java",
         "ojluni/src/lambda/java/java/lang/invoke/MethodType.java",
+        "ojluni/src/lambda/java/java/lang/invoke/StringConcatException.java",
+        "ojluni/src/lambda/java/java/lang/runtime/SwitchBootstraps.java",
     ],
 }
 
@@ -1949,10 +1953,14 @@ filegroup {
         "ojluni/src/main/java/sun/util/ResourceBundleEnumeration.java",
         "ojluni/src/main/java/sun/util/resources/OpenListResourceBundle.java",
         "ojluni/src/main/java/jdk/internal/math/DoubleConsts.java",
+        "ojluni/src/main/java/jdk/internal/math/DoubleToDecimal.java",
         "ojluni/src/main/java/jdk/internal/math/FDBigInteger.java",
         "ojluni/src/main/java/jdk/internal/math/FloatConsts.java",
         "ojluni/src/main/java/jdk/internal/math/FloatingDecimal.java",
+        "ojluni/src/main/java/jdk/internal/math/FloatToDecimal.java",
         "ojluni/src/main/java/jdk/internal/math/FormattedFloatingDecimal.java",
+        "ojluni/src/main/java/jdk/internal/math/FormattedFPDecimal.java",
+        "ojluni/src/main/java/jdk/internal/math/MathUtils.java",
         "ojluni/src/main/java/jdk/internal/util/random/RandomSupport.java",
     ],
 }

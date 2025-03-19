@@ -67,7 +67,7 @@ public boolean removeFirstOccurrence(java.lang.Object o);
 
 public boolean removeLastOccurrence(java.lang.Object o);
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public boolean add(E e);
 
 public boolean offer(E e);
@@ -96,7 +96,7 @@ public java.util.Iterator<E> iterator();
 
 public java.util.Iterator<E> descendingIterator();
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public default java.util.Deque<E> reversed() { throw new RuntimeException("Stub!"); }
 }
 

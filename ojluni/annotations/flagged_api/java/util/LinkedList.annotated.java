@@ -113,7 +113,7 @@ public <T> T[] toArray(T[] a) { throw new RuntimeException("Stub!"); }
 
 public java.util.Spliterator<E> spliterator() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public java.util.LinkedList<E> reversed() { throw new RuntimeException("Stub!"); }
 }
 

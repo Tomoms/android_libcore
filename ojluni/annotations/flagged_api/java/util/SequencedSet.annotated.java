@@ -26,11 +26,11 @@
 
 package java.util;
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 @SuppressWarnings({"unchecked", "deprecation", "all"})
 public interface SequencedSet<E> extends java.util.SequencedCollection<E>, java.util.Set<E> {
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public java.util.SequencedSet<E> reversed();
 }
 

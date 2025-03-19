@@ -111,6 +111,20 @@ public static void stopLowOverheadTrace();
 @android.annotation.FlaggedApi(com.android.art.flags.Flags.FLAG_ALWAYS_ENABLE_PROFILE_CODE)
 public static void dumpLowOverheadTrace(@NonNull VMDebug.TraceDestination traceFileName);
 
+@android.annotation.FlaggedApi(com.android.art.flags.Flags.FLAG_EXECUTABLE_METHOD_FILE_OFFSETS)
+public static class ExecutableMethodFileOffsets {
+  @android.annotation.FlaggedApi(com.android.art.flags.Flags.FLAG_EXECUTABLE_METHOD_FILE_OFFSETS)
+  public @NonNull String getContainerPath();
+  @android.annotation.FlaggedApi(com.android.art.flags.Flags.FLAG_EXECUTABLE_METHOD_FILE_OFFSETS)
+  public long getContainerOffset();
+  @android.annotation.FlaggedApi(com.android.art.flags.Flags.FLAG_EXECUTABLE_METHOD_FILE_OFFSETS)
+  public long getMethodOffset();
+}
+
+@android.annotation.FlaggedApi(com.android.art.flags.Flags.FLAG_EXECUTABLE_METHOD_FILE_OFFSETS)
+public static VMDebug.ExecutableMethodFileOffsets getExecutableMethodFileOffsets(
+        @NonNull java.lang.reflect.Method javaMethod);
+
 public static final int KIND_ALL_COUNTS = -1; // 0xffffffff
 
 public static final int KIND_GLOBAL_ALLOCATED_BYTES = 2; // 0x2

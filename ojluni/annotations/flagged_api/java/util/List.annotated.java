@@ -97,7 +97,7 @@ public default E removeFirst() { throw new RuntimeException("Stub!"); }
 
 public default E removeLast() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public default java.util.List<E> reversed() { throw new RuntimeException("Stub!"); }
 
 public static <E> java.util.List<E> of() { throw new RuntimeException("Stub!"); }

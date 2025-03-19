@@ -87,10 +87,10 @@ public E first() { throw new RuntimeException("Stub!"); }
 
 public E last() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public void addFirst(E e) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public void addLast(E e) { throw new RuntimeException("Stub!"); }
 
 public java.util.NavigableSet<E> subSet(E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) { throw new RuntimeException("Stub!"); }

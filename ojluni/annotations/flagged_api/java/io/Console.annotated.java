@@ -50,7 +50,7 @@ public char[] readPassword() { throw new RuntimeException("Stub!"); }
 
 public void flush() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public java.nio.charset.Charset charset() { throw new RuntimeException("Stub!"); }
 }
 

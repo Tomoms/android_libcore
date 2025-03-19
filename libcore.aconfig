@@ -48,6 +48,15 @@ flag {
     is_fixed_read_only: true
 }
 
+flag {
+    namespace: "core_libraries"
+    name: "openjdk21_stringconcat"
+    is_exported: true
+    description: "This flag exposes StringConcatException"
+    bug: "285090974"
+    # APIs provided by a mainline module can only use a frozen flag.
+    is_fixed_read_only: true
+}
 
 flag {
     namespace: "devtools"
@@ -73,8 +82,37 @@ flag {
     namespace: "core_libraries"
     name: "native_metrics"
     is_exported: true
-    description: "This flag includes APIs fo maintaining and exposing native allocation metrics"
+    description: "This flag includes APIs for maintaining and exposing native allocation metrics"
     bug: "331243037"
+    # APIs provided by a mainline module can only use a frozen flag.
+    is_fixed_read_only: true
+}
+
+flag {
+    namespace: "core_libraries"
+    name: "read_only_dynamic_code_load"
+    is_exported: true
+    description: "This flag controls if read only is enforced when loading native code"
+    bug: "354921003"
+    # APIs provided by a mainline module can only use a frozen flag.
+    is_fixed_read_only: true
+}
+
+flag {
+    namespace: "core_libraries"
+    name: "schedule_at_fixed_rate_new_behavior"
+    description: "If true, force-enables go/scheduleAtFixedRate-behavior-change regardless of AppCompat flag or SDK_INT value"
+    bug: "352746637"
+    # APIs provided by a mainline module can only use a frozen flag.
+    is_fixed_read_only: true
+}
+
+flag {
+    namespace: "core_libraries"
+    name: "hpke_public_api"
+    is_exported: true
+    description: "This flag includes HPKE public APIs"
+    bug: "323357598"
     # APIs provided by a mainline module can only use a frozen flag.
     is_fixed_read_only: true
 }

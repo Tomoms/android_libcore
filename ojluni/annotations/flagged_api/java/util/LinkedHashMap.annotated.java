@@ -39,10 +39,10 @@ public LinkedHashMap(java.util.Map<? extends K,? extends V> m) { throw new Runti
 
 public LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public V putFirst(K k, V v) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public V putLast(K k, V v) { throw new RuntimeException("Stub!"); }
 
 public boolean containsValue(java.lang.Object value) { throw new RuntimeException("Stub!"); }
@@ -57,27 +57,27 @@ protected boolean removeEldestEntry(java.util.Map.Entry<K,V> eldest) { throw new
 
 public java.util.Set<K> keySet() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public java.util.SequencedSet<K> sequencedKeySet() { throw new RuntimeException("Stub!"); }
 
 public java.util.Collection<V> values() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public java.util.SequencedCollection<V> sequencedValues() { throw new RuntimeException("Stub!"); }
 
 public java.util.Set<java.util.Map.Entry<K,V>> entrySet() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public java.util.SequencedSet<java.util.Map.Entry<K,V>> sequencedEntrySet() { throw new RuntimeException("Stub!"); }
 
 public void forEach(java.util.function.BiConsumer<? super K,? super V> action) { throw new RuntimeException("Stub!"); }
 
 public void replaceAll(java.util.function.BiFunction<? super K,? super V,? extends V> function) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static <K, V> java.util.LinkedHashMap<K,V> newLinkedHashMap(int numMappings) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public java.util.SequencedMap<K,V> reversed() { throw new RuntimeException("Stub!"); }
 }
 

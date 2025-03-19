@@ -579,6 +579,10 @@ public final class OsConstants {
     @UnsupportedAppUsage
     @SystemApi(client = MODULE_LIBRARIES)
     public static final int RLIMIT_NOFILE = placeholder();
+    /** @hide */
+    @android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int RLIMIT_RTPRIO = placeholder();
     public static final int RT_SCOPE_HOST = placeholder();
     public static final int RT_SCOPE_LINK = placeholder();
     public static final int RT_SCOPE_NOWHERE = placeholder();

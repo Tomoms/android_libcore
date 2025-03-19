@@ -42,6 +42,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 import java.util.SplittableRandom;
@@ -626,6 +627,7 @@ public class SplittableRandomTest extends JSR166TestCase {
         };
         List<Method> forgotten =
             Arrays.stream(java.util.Random.class.getMethods())
+            .filter(method -> (method.getModifiers() & Modifier.STATIC) == 0)
             .filter(wasForgotten)
             .collect(Collectors.toList());
         if (!forgotten.isEmpty())

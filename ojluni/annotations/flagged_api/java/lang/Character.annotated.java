@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002, 2021, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2002, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -27,93 +27,120 @@
 package java.lang;
 
 @SuppressWarnings({"unchecked", "deprecation", "all"})
-public final class Character implements java.io.Serializable, java.lang.Comparable<java.lang.Character> {
+public final class Character implements java.lang.Comparable<java.lang.Character>, java.io.Serializable {
 
 @Deprecated
 public Character(char value) { throw new RuntimeException("Stub!"); }
 
-public static java.lang.Character valueOf(char c) { throw new RuntimeException("Stub!"); }
-
-public char charValue() { throw new RuntimeException("Stub!"); }
-
-public int hashCode() { throw new RuntimeException("Stub!"); }
-
-public static int hashCode(char value) { throw new RuntimeException("Stub!"); }
-
-public boolean equals(java.lang.Object obj) { throw new RuntimeException("Stub!"); }
-
-public java.lang.String toString() { throw new RuntimeException("Stub!"); }
-
-public static java.lang.String toString(char c) { throw new RuntimeException("Stub!"); }
-
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
-public static java.lang.String toString(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static boolean isValidCodePoint(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static boolean isBmpCodePoint(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static boolean isSupplementaryCodePoint(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static boolean isHighSurrogate(char ch) { throw new RuntimeException("Stub!"); }
-
-public static boolean isLowSurrogate(char ch) { throw new RuntimeException("Stub!"); }
-
-public static boolean isSurrogate(char ch) { throw new RuntimeException("Stub!"); }
-
-public static boolean isSurrogatePair(char high, char low) { throw new RuntimeException("Stub!"); }
-
 public static int charCount(int codePoint) { throw new RuntimeException("Stub!"); }
 
-public static int toCodePoint(char high, char low) { throw new RuntimeException("Stub!"); }
-
-public static int codePointAt(java.lang.CharSequence seq, int index) { throw new RuntimeException("Stub!"); }
+public char charValue() { throw new RuntimeException("Stub!"); }
 
 public static int codePointAt(char[] a, int index) { throw new RuntimeException("Stub!"); }
 
 public static int codePointAt(char[] a, int index, int limit) { throw new RuntimeException("Stub!"); }
 
-public static int codePointBefore(java.lang.CharSequence seq, int index) { throw new RuntimeException("Stub!"); }
+public static int codePointAt(java.lang.CharSequence seq, int index) { throw new RuntimeException("Stub!"); }
 
 public static int codePointBefore(char[] a, int index) { throw new RuntimeException("Stub!"); }
 
 public static int codePointBefore(char[] a, int index, int start) { throw new RuntimeException("Stub!"); }
 
-public static char highSurrogate(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static char lowSurrogate(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static int toChars(int codePoint, char[] dst, int dstIndex) { throw new RuntimeException("Stub!"); }
-
-public static char[] toChars(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static int codePointCount(java.lang.CharSequence seq, int beginIndex, int endIndex) { throw new RuntimeException("Stub!"); }
+public static int codePointBefore(java.lang.CharSequence seq, int index) { throw new RuntimeException("Stub!"); }
 
 public static int codePointCount(char[] a, int offset, int count) { throw new RuntimeException("Stub!"); }
 
-public static int offsetByCodePoints(java.lang.CharSequence seq, int index, int codePointOffset) { throw new RuntimeException("Stub!"); }
+public static int codePointCount(java.lang.CharSequence seq, int beginIndex, int endIndex) { throw new RuntimeException("Stub!"); }
 
-public static int offsetByCodePoints(char[] a, int start, int count, int index, int codePointOffset) { throw new RuntimeException("Stub!"); }
+public static int codePointOf(java.lang.String name) { throw new RuntimeException("Stub!"); }
 
-public static boolean isLowerCase(char ch) { throw new RuntimeException("Stub!"); }
+public static int compare(char x, char y) { throw new RuntimeException("Stub!"); }
 
-public static boolean isLowerCase(int codePoint) { throw new RuntimeException("Stub!"); }
+public int compareTo(java.lang.Character anotherCharacter) { throw new RuntimeException("Stub!"); }
 
-public static boolean isUpperCase(char ch) { throw new RuntimeException("Stub!"); }
+public static int digit(char ch, int radix) { throw new RuntimeException("Stub!"); }
 
-public static boolean isUpperCase(int codePoint) { throw new RuntimeException("Stub!"); }
+public static int digit(int codePoint, int radix) { throw new RuntimeException("Stub!"); }
 
-public static boolean isTitleCase(char ch) { throw new RuntimeException("Stub!"); }
+public boolean equals(java.lang.Object obj) { throw new RuntimeException("Stub!"); }
 
-public static boolean isTitleCase(int codePoint) { throw new RuntimeException("Stub!"); }
+public static char forDigit(int digit, int radix) { throw new RuntimeException("Stub!"); }
+
+public static byte getDirectionality(char ch) { throw new RuntimeException("Stub!"); }
+
+public static byte getDirectionality(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static java.lang.String getName(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static int getNumericValue(char ch) { throw new RuntimeException("Stub!"); }
+
+public static int getNumericValue(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static int getType(char ch) { throw new RuntimeException("Stub!"); }
+
+public static int getType(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public int hashCode() { throw new RuntimeException("Stub!"); }
+
+public static int hashCode(char value) { throw new RuntimeException("Stub!"); }
+
+public static char highSurrogate(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isAlphabetic(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isBmpCodePoint(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isDefined(char ch) { throw new RuntimeException("Stub!"); }
+
+public static boolean isDefined(int codePoint) { throw new RuntimeException("Stub!"); }
 
 public static boolean isDigit(char ch) { throw new RuntimeException("Stub!"); }
 
 public static boolean isDigit(int codePoint) { throw new RuntimeException("Stub!"); }
 
-public static boolean isDefined(char ch) { throw new RuntimeException("Stub!"); }
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static boolean isEmoji(int codePoint) { throw new RuntimeException("Stub!"); }
 
-public static boolean isDefined(int codePoint) { throw new RuntimeException("Stub!"); }
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static boolean isEmojiComponent(int codePoint) { throw new RuntimeException("Stub!"); }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static boolean isEmojiModifier(int codePoint) { throw new RuntimeException("Stub!"); }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static boolean isEmojiModifierBase(int codePoint) { throw new RuntimeException("Stub!"); }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static boolean isEmojiPresentation(int codePoint) { throw new RuntimeException("Stub!"); }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static boolean isExtendedPictographic(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isHighSurrogate(char ch) { throw new RuntimeException("Stub!"); }
+
+public static boolean isISOControl(char ch) { throw new RuntimeException("Stub!"); }
+
+public static boolean isISOControl(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isIdentifierIgnorable(char ch) { throw new RuntimeException("Stub!"); }
+
+public static boolean isIdentifierIgnorable(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isIdeographic(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isJavaIdentifierPart(char ch) { throw new RuntimeException("Stub!"); }
+
+public static boolean isJavaIdentifierPart(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isJavaIdentifierStart(char ch) { throw new RuntimeException("Stub!"); }
+
+public static boolean isJavaIdentifierStart(int codePoint) { throw new RuntimeException("Stub!"); }
+
+@Deprecated
+public static boolean isJavaLetter(char ch) { throw new RuntimeException("Stub!"); }
+
+@Deprecated
+public static boolean isJavaLetterOrDigit(char ch) { throw new RuntimeException("Stub!"); }
 
 public static boolean isLetter(char ch) { throw new RuntimeException("Stub!"); }
 
@@ -123,55 +150,15 @@ public static boolean isLetterOrDigit(char ch) { throw new RuntimeException("Stu
 
 public static boolean isLetterOrDigit(int codePoint) { throw new RuntimeException("Stub!"); }
 
-@Deprecated
-public static boolean isJavaLetter(char ch) { throw new RuntimeException("Stub!"); }
+public static boolean isLowSurrogate(char ch) { throw new RuntimeException("Stub!"); }
 
-@Deprecated
-public static boolean isJavaLetterOrDigit(char ch) { throw new RuntimeException("Stub!"); }
+public static boolean isLowerCase(char ch) { throw new RuntimeException("Stub!"); }
 
-public static boolean isAlphabetic(int codePoint) { throw new RuntimeException("Stub!"); }
+public static boolean isLowerCase(int codePoint) { throw new RuntimeException("Stub!"); }
 
-public static boolean isIdeographic(int codePoint) { throw new RuntimeException("Stub!"); }
+public static boolean isMirrored(char ch) { throw new RuntimeException("Stub!"); }
 
-public static boolean isJavaIdentifierStart(char ch) { throw new RuntimeException("Stub!"); }
-
-public static boolean isJavaIdentifierStart(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static boolean isJavaIdentifierPart(char ch) { throw new RuntimeException("Stub!"); }
-
-public static boolean isJavaIdentifierPart(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static boolean isUnicodeIdentifierStart(char ch) { throw new RuntimeException("Stub!"); }
-
-public static boolean isUnicodeIdentifierStart(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static boolean isUnicodeIdentifierPart(char ch) { throw new RuntimeException("Stub!"); }
-
-public static boolean isUnicodeIdentifierPart(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static boolean isIdentifierIgnorable(char ch) { throw new RuntimeException("Stub!"); }
-
-public static boolean isIdentifierIgnorable(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static char toLowerCase(char ch) { throw new RuntimeException("Stub!"); }
-
-public static int toLowerCase(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static char toUpperCase(char ch) { throw new RuntimeException("Stub!"); }
-
-public static int toUpperCase(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static char toTitleCase(char ch) { throw new RuntimeException("Stub!"); }
-
-public static int toTitleCase(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static int digit(char ch, int radix) { throw new RuntimeException("Stub!"); }
-
-public static int digit(int codePoint, int radix) { throw new RuntimeException("Stub!"); }
-
-public static int getNumericValue(char ch) { throw new RuntimeException("Stub!"); }
-
-public static int getNumericValue(int codePoint) { throw new RuntimeException("Stub!"); }
+public static boolean isMirrored(int codePoint) { throw new RuntimeException("Stub!"); }
 
 @Deprecated
 public static boolean isSpace(char ch) { throw new RuntimeException("Stub!"); }
@@ -180,38 +167,67 @@ public static boolean isSpaceChar(char ch) { throw new RuntimeException("Stub!")
 
 public static boolean isSpaceChar(int codePoint) { throw new RuntimeException("Stub!"); }
 
+public static boolean isSupplementaryCodePoint(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isSurrogate(char ch) { throw new RuntimeException("Stub!"); }
+
+public static boolean isSurrogatePair(char high, char low) { throw new RuntimeException("Stub!"); }
+
+public static boolean isTitleCase(char ch) { throw new RuntimeException("Stub!"); }
+
+public static boolean isTitleCase(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isUnicodeIdentifierPart(char ch) { throw new RuntimeException("Stub!"); }
+
+public static boolean isUnicodeIdentifierPart(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isUnicodeIdentifierStart(char ch) { throw new RuntimeException("Stub!"); }
+
+public static boolean isUnicodeIdentifierStart(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isUpperCase(char ch) { throw new RuntimeException("Stub!"); }
+
+public static boolean isUpperCase(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static boolean isValidCodePoint(int codePoint) { throw new RuntimeException("Stub!"); }
+
 public static boolean isWhitespace(char ch) { throw new RuntimeException("Stub!"); }
 
 public static boolean isWhitespace(int codePoint) { throw new RuntimeException("Stub!"); }
 
-public static boolean isISOControl(char ch) { throw new RuntimeException("Stub!"); }
+public static char lowSurrogate(int codePoint) { throw new RuntimeException("Stub!"); }
 
-public static boolean isISOControl(int codePoint) { throw new RuntimeException("Stub!"); }
+public static int offsetByCodePoints(char[] a, int start, int count, int index, int codePointOffset) { throw new RuntimeException("Stub!"); }
 
-public static int getType(char ch) { throw new RuntimeException("Stub!"); }
-
-public static int getType(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static char forDigit(int digit, int radix) { throw new RuntimeException("Stub!"); }
-
-public static byte getDirectionality(char ch) { throw new RuntimeException("Stub!"); }
-
-public static byte getDirectionality(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static boolean isMirrored(char ch) { throw new RuntimeException("Stub!"); }
-
-public static boolean isMirrored(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public int compareTo(java.lang.Character anotherCharacter) { throw new RuntimeException("Stub!"); }
-
-public static int compare(char x, char y) { throw new RuntimeException("Stub!"); }
+public static int offsetByCodePoints(java.lang.CharSequence seq, int index, int codePointOffset) { throw new RuntimeException("Stub!"); }
 
 public static char reverseBytes(char ch) { throw new RuntimeException("Stub!"); }
 
-public static java.lang.String getName(int codePoint) { throw new RuntimeException("Stub!"); }
+public static char[] toChars(int codePoint) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
-public static int codePointOf(java.lang.String name) { throw new RuntimeException("Stub!"); }
+public static int toChars(int codePoint, char[] dst, int dstIndex) { throw new RuntimeException("Stub!"); }
+
+public static int toCodePoint(char high, char low) { throw new RuntimeException("Stub!"); }
+
+public static char toLowerCase(char ch) { throw new RuntimeException("Stub!"); }
+
+public static int toLowerCase(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public java.lang.String toString() { throw new RuntimeException("Stub!"); }
+
+public static java.lang.String toString(char c) { throw new RuntimeException("Stub!"); }
+
+public static java.lang.String toString(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static char toTitleCase(char ch) { throw new RuntimeException("Stub!"); }
+
+public static int toTitleCase(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static char toUpperCase(char ch) { throw new RuntimeException("Stub!"); }
+
+public static int toUpperCase(int codePoint) { throw new RuntimeException("Stub!"); }
+
+public static java.lang.Character valueOf(char c) { throw new RuntimeException("Stub!"); }
 
 public static final int BYTES = 2; // 0x2
 
@@ -368,13 +384,13 @@ public final java.lang.String toString() { throw new RuntimeException("Stub!"); 
 @SuppressWarnings({"unchecked", "deprecation", "all"})
 public static final class UnicodeBlock extends java.lang.Character.Subset {
 
-UnicodeBlock() { super(null); throw new RuntimeException("Stub!"); }
+UnicodeBlock() { super(""); throw new RuntimeException("Stub!"); }
+
+public static java.lang.Character.UnicodeBlock forName(java.lang.String blockName) { throw new RuntimeException("Stub!"); }
 
 public static java.lang.Character.UnicodeBlock of(char c) { throw new RuntimeException("Stub!"); }
 
 public static java.lang.Character.UnicodeBlock of(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static java.lang.Character.UnicodeBlock forName(java.lang.String blockName) { throw new RuntimeException("Stub!"); }
 
 public static final java.lang.Character.UnicodeBlock ADLAM;
 static { ADLAM = null; }
@@ -408,6 +424,14 @@ static { ARABIC = null; }
 
 public static final java.lang.Character.UnicodeBlock ARABIC_EXTENDED_A;
 static { ARABIC_EXTENDED_A = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock ARABIC_EXTENDED_B;
+static { ARABIC_EXTENDED_B = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock ARABIC_EXTENDED_C;
+static { ARABIC_EXTENDED_C = null; }
 
 public static final java.lang.Character.UnicodeBlock ARABIC_MATHEMATICAL_ALPHABETIC_SYMBOLS;
 static { ARABIC_MATHEMATICAL_ALPHABETIC_SYMBOLS = null; }
@@ -550,6 +574,10 @@ static { CJK_UNIFIED_IDEOGRAPHS_EXTENSION_F = null; }
 public static final java.lang.Character.UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_G;
 static { CJK_UNIFIED_IDEOGRAPHS_EXTENSION_G = null; }
 
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_H;
+static { CJK_UNIFIED_IDEOGRAPHS_EXTENSION_H = null; }
+
 public static final java.lang.Character.UnicodeBlock COMBINING_DIACRITICAL_MARKS;
 static { COMBINING_DIACRITICAL_MARKS = null; }
 
@@ -592,6 +620,10 @@ static { CURRENCY_SYMBOLS = null; }
 public static final java.lang.Character.UnicodeBlock CYPRIOT_SYLLABARY;
 static { CYPRIOT_SYLLABARY = null; }
 
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock CYPRO_MINOAN;
+static { CYPRO_MINOAN = null; }
+
 public static final java.lang.Character.UnicodeBlock CYRILLIC;
 static { CYRILLIC = null; }
 
@@ -604,6 +636,10 @@ static { CYRILLIC_EXTENDED_B = null; }
 public static final java.lang.Character.UnicodeBlock CYRILLIC_EXTENDED_C;
 static { CYRILLIC_EXTENDED_C = null; }
 
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock CYRILLIC_EXTENDED_D;
+static { CYRILLIC_EXTENDED_D = null; }
+
 public static final java.lang.Character.UnicodeBlock CYRILLIC_SUPPLEMENTARY;
 static { CYRILLIC_SUPPLEMENTARY = null; }
 
@@ -615,6 +651,10 @@ static { DEVANAGARI = null; }
 
 public static final java.lang.Character.UnicodeBlock DEVANAGARI_EXTENDED;
 static { DEVANAGARI_EXTENDED = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock DEVANAGARI_EXTENDED_A;
+static { DEVANAGARI_EXTENDED_A = null; }
 
 public static final java.lang.Character.UnicodeBlock DINGBATS;
 static { DINGBATS = null; }
@@ -669,6 +709,10 @@ static { ETHIOPIC_EXTENDED = null; }
 
 public static final java.lang.Character.UnicodeBlock ETHIOPIC_EXTENDED_A;
 static { ETHIOPIC_EXTENDED_A = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock ETHIOPIC_EXTENDED_B;
+static { ETHIOPIC_EXTENDED_B = null; }
 
 public static final java.lang.Character.UnicodeBlock ETHIOPIC_SUPPLEMENT;
 static { ETHIOPIC_SUPPLEMENT = null; }
@@ -784,8 +828,16 @@ static { JAVANESE = null; }
 public static final java.lang.Character.UnicodeBlock KAITHI;
 static { KAITHI = null; }
 
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock KAKTOVIK_NUMERALS;
+static { KAKTOVIK_NUMERALS = null; }
+
 public static final java.lang.Character.UnicodeBlock KANA_EXTENDED_A;
 static { KANA_EXTENDED_A = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock KANA_EXTENDED_B;
+static { KANA_EXTENDED_B = null; }
 
 public static final java.lang.Character.UnicodeBlock KANA_SUPPLEMENT;
 static { KANA_SUPPLEMENT = null; }
@@ -804,6 +856,10 @@ static { KATAKANA = null; }
 
 public static final java.lang.Character.UnicodeBlock KATAKANA_PHONETIC_EXTENSIONS;
 static { KATAKANA_PHONETIC_EXTENSIONS = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock KAWI;
+static { KAWI = null; }
 
 public static final java.lang.Character.UnicodeBlock KAYAH_LI;
 static { KAYAH_LI = null; }
@@ -849,6 +905,14 @@ static { LATIN_EXTENDED_D = null; }
 
 public static final java.lang.Character.UnicodeBlock LATIN_EXTENDED_E;
 static { LATIN_EXTENDED_E = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock LATIN_EXTENDED_F;
+static { LATIN_EXTENDED_F = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock LATIN_EXTENDED_G;
+static { LATIN_EXTENDED_G = null; }
 
 public static final java.lang.Character.UnicodeBlock LEPCHA;
 static { LEPCHA = null; }
@@ -988,6 +1052,10 @@ static { MYANMAR_EXTENDED_B = null; }
 public static final java.lang.Character.UnicodeBlock NABATAEAN;
 static { NABATAEAN = null; }
 
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock NAG_MUNDARI;
+static { NAG_MUNDARI = null; }
+
 public static final java.lang.Character.UnicodeBlock NANDINAGARI;
 static { NANDINAGARI = null; }
 
@@ -1035,6 +1103,10 @@ static { OLD_SOUTH_ARABIAN = null; }
 
 public static final java.lang.Character.UnicodeBlock OLD_TURKIC;
 static { OLD_TURKIC = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock OLD_UYGHUR;
+static { OLD_UYGHUR = null; }
 
 public static final java.lang.Character.UnicodeBlock OL_CHIKI;
 static { OL_CHIKI = null; }
@@ -1228,6 +1300,10 @@ static { TAMIL = null; }
 public static final java.lang.Character.UnicodeBlock TAMIL_SUPPLEMENT;
 static { TAMIL_SUPPLEMENT = null; }
 
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock TANGSA;
+static { TANGSA = null; }
+
 public static final java.lang.Character.UnicodeBlock TANGUT;
 static { TANGUT = null; }
 
@@ -1255,6 +1331,10 @@ static { TIFINAGH = null; }
 public static final java.lang.Character.UnicodeBlock TIRHUTA;
 static { TIRHUTA = null; }
 
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock TOTO;
+static { TOTO = null; }
+
 public static final java.lang.Character.UnicodeBlock TRANSPORT_AND_MAP_SYMBOLS;
 static { TRANSPORT_AND_MAP_SYMBOLS = null; }
 
@@ -1266,6 +1346,10 @@ static { UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS = null; }
 
 public static final java.lang.Character.UnicodeBlock UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS_EXTENDED;
 static { UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS_EXTENDED = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS_EXTENDED_A;
+static { UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS_EXTENDED_A = null; }
 
 public static final java.lang.Character.UnicodeBlock VAI;
 static { VAI = null; }
@@ -1281,6 +1365,10 @@ static { VEDIC_EXTENSIONS = null; }
 
 public static final java.lang.Character.UnicodeBlock VERTICAL_FORMS;
 static { VERTICAL_FORMS = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock VITHKUQI;
+static { VITHKUQI = null; }
 
 public static final java.lang.Character.UnicodeBlock WANCHO;
 static { WANCHO = null; }
@@ -1302,171 +1390,189 @@ static { YI_SYLLABLES = null; }
 
 public static final java.lang.Character.UnicodeBlock ZANABAZAR_SQUARE;
 static { ZANABAZAR_SQUARE = null; }
+
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+public static final java.lang.Character.UnicodeBlock ZNAMENNY_MUSICAL_NOTATION;
+static { ZNAMENNY_MUSICAL_NOTATION = null; }
 }
 
 @SuppressWarnings({"unchecked", "deprecation", "all"})
 public enum UnicodeScript {
-COMMON,
-LATIN,
-GREEK,
-CYRILLIC,
-ARMENIAN,
-HEBREW,
-ARABIC,
-SYRIAC,
-THAANA,
-DEVANAGARI,
-BENGALI,
-GURMUKHI,
-GUJARATI,
-ORIYA,
-TAMIL,
-TELUGU,
-KANNADA,
-MALAYALAM,
-SINHALA,
-THAI,
-LAO,
-TIBETAN,
-MYANMAR,
-GEORGIAN,
-HANGUL,
-ETHIOPIC,
-CHEROKEE,
-CANADIAN_ABORIGINAL,
-OGHAM,
-RUNIC,
-KHMER,
-MONGOLIAN,
-HIRAGANA,
-KATAKANA,
-BOPOMOFO,
-HAN,
-YI,
-OLD_ITALIC,
-GOTHIC,
-DESERET,
-INHERITED,
-TAGALOG,
-HANUNOO,
-BUHID,
-TAGBANWA,
-LIMBU,
-TAI_LE,
-LINEAR_B,
-UGARITIC,
-SHAVIAN,
-OSMANYA,
-CYPRIOT,
-BRAILLE,
-BUGINESE,
-COPTIC,
-NEW_TAI_LUE,
-GLAGOLITIC,
-TIFINAGH,
-SYLOTI_NAGRI,
-OLD_PERSIAN,
-KHAROSHTHI,
-BALINESE,
-CUNEIFORM,
-PHOENICIAN,
-PHAGS_PA,
-NKO,
-SUNDANESE,
-BATAK,
-LEPCHA,
-OL_CHIKI,
-VAI,
-SAURASHTRA,
-KAYAH_LI,
-REJANG,
-LYCIAN,
-CARIAN,
-LYDIAN,
-CHAM,
-TAI_THAM,
-TAI_VIET,
-AVESTAN,
-EGYPTIAN_HIEROGLYPHS,
-SAMARITAN,
-MANDAIC,
-LISU,
-BAMUM,
-JAVANESE,
-MEETEI_MAYEK,
-IMPERIAL_ARAMAIC,
-OLD_SOUTH_ARABIAN,
-INSCRIPTIONAL_PARTHIAN,
-INSCRIPTIONAL_PAHLAVI,
-OLD_TURKIC,
-BRAHMI,
-KAITHI,
-MEROITIC_HIEROGLYPHS,
-MEROITIC_CURSIVE,
-SORA_SOMPENG,
-CHAKMA,
-SHARADA,
-TAKRI,
-MIAO,
-CAUCASIAN_ALBANIAN,
-BASSA_VAH,
-DUPLOYAN,
-ELBASAN,
-GRANTHA,
-PAHAWH_HMONG,
-KHOJKI,
-LINEAR_A,
-MAHAJANI,
-MANICHAEAN,
-MENDE_KIKAKUI,
-MODI,
-MRO,
-OLD_NORTH_ARABIAN,
-NABATAEAN,
-PALMYRENE,
-PAU_CIN_HAU,
-OLD_PERMIC,
-PSALTER_PAHLAVI,
-SIDDHAM,
-KHUDAWADI,
-TIRHUTA,
-WARANG_CITI,
+ADLAM,
 AHOM,
 ANATOLIAN_HIEROGLYPHS,
-HATRAN,
-MULTANI,
-OLD_HUNGARIAN,
-SIGNWRITING,
-ADLAM,
+ARABIC,
+ARMENIAN,
+AVESTAN,
+BALINESE,
+BAMUM,
+BASSA_VAH,
+BATAK,
+BENGALI,
 BHAIKSUKI,
-MARCHEN,
-NEWA,
-OSAGE,
-TANGUT,
-MASARAM_GONDI,
-NUSHU,
-SOYOMBO,
-ZANABAZAR_SQUARE,
-HANIFI_ROHINGYA,
-OLD_SOGDIAN,
-SOGDIAN,
-DOGRA,
-GUNJALA_GONDI,
-MAKASAR,
-MEDEFAIDRIN,
-ELYMAIC,
-NANDINAGARI,
-NYIAKENG_PUACHUE_HMONG,
-WANCHO,
-YEZIDI,
+BOPOMOFO,
+BRAHMI,
+BRAILLE,
+BUGINESE,
+BUHID,
+CANADIAN_ABORIGINAL,
+CARIAN,
+CAUCASIAN_ALBANIAN,
+CHAKMA,
+CHAM,
+CHEROKEE,
 CHORASMIAN,
+COMMON,
+COPTIC,
+CUNEIFORM,
+CYPRIOT,
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+CYPRO_MINOAN,
+CYRILLIC,
+DESERET,
+DEVANAGARI,
 DIVES_AKURU,
+DOGRA,
+DUPLOYAN,
+EGYPTIAN_HIEROGLYPHS,
+ELBASAN,
+ELYMAIC,
+ETHIOPIC,
+GEORGIAN,
+GLAGOLITIC,
+GOTHIC,
+GRANTHA,
+GREEK,
+GUJARATI,
+GUNJALA_GONDI,
+GURMUKHI,
+HAN,
+HANGUL,
+HANIFI_ROHINGYA,
+HANUNOO,
+HATRAN,
+HEBREW,
+HIRAGANA,
+IMPERIAL_ARAMAIC,
+INHERITED,
+INSCRIPTIONAL_PAHLAVI,
+INSCRIPTIONAL_PARTHIAN,
+JAVANESE,
+KAITHI,
+KANNADA,
+KATAKANA,
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+KAWI,
+KAYAH_LI,
+KHAROSHTHI,
 KHITAN_SMALL_SCRIPT,
-UNKNOWN;
+KHMER,
+KHOJKI,
+KHUDAWADI,
+LAO,
+LATIN,
+LEPCHA,
+LIMBU,
+LINEAR_A,
+LINEAR_B,
+LISU,
+LYCIAN,
+LYDIAN,
+MAHAJANI,
+MAKASAR,
+MALAYALAM,
+MANDAIC,
+MANICHAEAN,
+MARCHEN,
+MASARAM_GONDI,
+MEDEFAIDRIN,
+MEETEI_MAYEK,
+MENDE_KIKAKUI,
+MEROITIC_CURSIVE,
+MEROITIC_HIEROGLYPHS,
+MIAO,
+MODI,
+MONGOLIAN,
+MRO,
+MULTANI,
+MYANMAR,
+NABATAEAN,
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+NAG_MUNDARI,
+NANDINAGARI,
+NEWA,
+NEW_TAI_LUE,
+NKO,
+NUSHU,
+NYIAKENG_PUACHUE_HMONG,
+OGHAM,
+OLD_HUNGARIAN,
+OLD_ITALIC,
+OLD_NORTH_ARABIAN,
+OLD_PERMIC,
+OLD_PERSIAN,
+OLD_SOGDIAN,
+OLD_SOUTH_ARABIAN,
+OLD_TURKIC,
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+OLD_UYGHUR,
+OL_CHIKI,
+ORIYA,
+OSAGE,
+OSMANYA,
+PAHAWH_HMONG,
+PALMYRENE,
+PAU_CIN_HAU,
+PHAGS_PA,
+PHOENICIAN,
+PSALTER_PAHLAVI,
+REJANG,
+RUNIC,
+SAMARITAN,
+SAURASHTRA,
+SHARADA,
+SHAVIAN,
+SIDDHAM,
+SIGNWRITING,
+SINHALA,
+SOGDIAN,
+SORA_SOMPENG,
+SOYOMBO,
+SUNDANESE,
+SYLOTI_NAGRI,
+SYRIAC,
+TAGALOG,
+TAGBANWA,
+TAI_LE,
+TAI_THAM,
+TAI_VIET,
+TAKRI,
+TAMIL,
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+TANGSA,
+TANGUT,
+TELUGU,
+THAANA,
+THAI,
+TIBETAN,
+TIFINAGH,
+TIRHUTA,
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+TOTO,
+UGARITIC,
+UNKNOWN,
+VAI,
+@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_OPENJDK_21_V1_APIS)
+VITHKUQI,
+WANCHO,
+WARANG_CITI,
+YEZIDI,
+YI,
+ZANABAZAR_SQUARE;
+
+public static java.lang.Character.UnicodeScript forName(java.lang.String scriptName) { throw new RuntimeException("Stub!"); }
 
 public static java.lang.Character.UnicodeScript of(int codePoint) { throw new RuntimeException("Stub!"); }
-
-public static final java.lang.Character.UnicodeScript forName(java.lang.String scriptName) { throw new RuntimeException("Stub!"); }
 }
 
 }

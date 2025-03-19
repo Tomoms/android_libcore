@@ -28,6 +28,6 @@
         <option name="runner" value="androidx.benchmark.junit4.AndroidBenchmarkRunner"/>
         <option name="hidden-api-checks" value="false"/>
         <option name="instrumentation-arg" key="androidx.benchmark.suppressErrors"
-                value="EMULATOR,LOW-BATTERY"/>
+                value="EMULATOR,LOW-BATTERY,UNLOCKED"/>
     </test>
 </configuration>

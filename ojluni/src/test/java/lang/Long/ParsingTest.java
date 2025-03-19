@@ -55,8 +55,7 @@ import org.testng.annotations.Test;
 
 public class ParsingTest {
 
-    @Test
-    public void testParsing() {
+    public static void main(String... argv) {
         check(+100L, "+100");
         check(-100L, "-100");
 

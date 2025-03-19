@@ -31,11 +31,14 @@ import sun.reflect.Reflection;
 
 import java.lang.reflect.*;
 import java.nio.ByteOrder;
+import java.nio.charset.Charset;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -992,7 +995,13 @@ assertEquals("", (String) MH_newString.invokeExact());
 
             // Insert the leading reference parameter.
             MethodType handleType = type.insertParameterTypes(0, refc);
-            return createMethodHandle(method, MethodHandle.INVOKE_VIRTUAL, handleType);
+            int kind = MethodHandle.INVOKE_VIRTUAL;
+            // This is the same check what Class::FindVirtualMethodForVirtualOrInterface is doing.
+            // Not doing `isCopied` check as copied methods are not exposed in the reflection APIs.
+            if (method.getDeclaringClass().isInterface() /* && !method.isCopied() */) {
+                kind = MethodHandle.INVOKE_INTERFACE;
+            }
+            return createMethodHandle(method, kind, handleType);
         }
 
         /**
@@ -1086,6 +1095,81 @@ assertEquals("[x, y, z]", pb.command().toString());
         }
         // END Android-added: Add findClass(String) from OpenJDK 17. http://b/270028670
 
+        // BEGIN Android-added: mapping from String constructors to StringFactory methods.
+        private static final Map<Constructor<String>, Method> STRING_TO_STRING_FACTORY =
+                buildMapping();
+
+        private static Map<Constructor<String>, Method> buildMapping() {
+            // If system image is not provided, during bootstrap time
+            // String.class.getDeclaringConstructor will succeeded, but j.l.r.Constructor might
+            // not be initialized yet. Hence initializing it explicitly here.
+            try {
+                Class.forName("java.lang.reflect.Constructor");
+            } catch (Exception e) {
+                throw new InternalError("Failed to initialize Constructor class", e);
+            }
+
+            Map<Constructor<String>, Method> mapping = new HashMap<>();
+            Map<List<Class<?>>, String> signatureAndName = new HashMap<>();
+            // Intentionally not using ImmutableCollections (List.of, Map.copyOf) below.
+            // ImmutableCollections' static initializer calls System.nanoTime and adding its
+            // implementation to UnstartedRuntime leads to Math.RandomNumberGeneratorHolder
+            // initialization in the system image effectively making it deterministic.
+            signatureAndName.put(Arrays.asList(), "newEmptyString");
+            signatureAndName.put(Arrays.asList(byte[].class),"newStringFromBytes");
+            signatureAndName.put(Arrays.asList(byte[].class, byte.class), "newStringFromBytes");
+            signatureAndName.put(Arrays.asList(byte[].class, int.class), "newStringFromBytes");
+            signatureAndName.put(
+                    Arrays.asList(byte[].class, int.class, int.class), "newStringFromBytes");
+            signatureAndName.put(
+                    Arrays.asList(byte[].class, int.class, int.class, int.class),
+                    "newStringFromBytes");
+            signatureAndName.put(
+                    Arrays.asList(byte[].class, int.class, int.class, String.class),
+                    "newStringFromBytes");
+            signatureAndName.put(Arrays.asList(byte[].class, String.class), "newStringFromBytes");
+            signatureAndName.put(
+                    Arrays.asList(byte[].class, int.class, int.class, Charset.class),
+                    "newStringFromBytes");
+            signatureAndName.put(Arrays.asList(byte[].class, Charset.class), "newStringFromBytes");
+            signatureAndName.put(Arrays.asList(char[].class), "newStringFromChars");
+            signatureAndName.put(
+                    Arrays.asList(char[].class, int.class, int.class), "newStringFromChars");
+            signatureAndName.put(
+                    Arrays.asList(int.class, int.class, char[].class), "newStringFromChars");
+            signatureAndName.put(Arrays.asList(String.class), "newStringFromString");
+            signatureAndName.put(Arrays.asList(StringBuffer.class), "newStringFromStringBuffer");
+            signatureAndName.put(
+                    Arrays.asList(int[].class, int.class, int.class), "newStringFromCodePoints");
+            signatureAndName.put(Arrays.asList(StringBuilder.class), "newStringFromStringBuilder");
+
+            for (var entry : signatureAndName.entrySet()) {
+                List<Class<?>> types = entry.getKey();
+                String name = entry.getValue();
+                try {
+                    Constructor<String> stringConstructor =
+                            String.class.getDeclaredConstructor(
+                                    types.toArray(new Class<?>[0]));
+                    Method factoryMethod =
+                            StringFactory.class.getDeclaredMethod(
+                                    name, types.toArray(new Class<?>[0]));
+                    if (mapping.put(stringConstructor, factoryMethod) != null) {
+                        throw new InternalError("Attempt to remap " + stringConstructor);
+                    }
+                } catch (NoSuchMethodException nsme) {
+                    throw new InternalError(nsme);
+                }
+            }
+
+            return Collections.unmodifiableMap(mapping);
+        }
+
+        private static Method findStringFactoryMethod(Constructor<String> constructor) {
+            return Objects.requireNonNull(STRING_TO_STRING_FACTORY.get(constructor),
+                                          "No mapping for " + constructor);
+        }
+        // END Android-added: mapping from String constructors to StringFactory methods.
+
         private MethodHandle createMethodHandleForConstructor(Constructor constructor) {
             Class<?> refc = constructor.getDeclaringClass();
             MethodType constructorType =
@@ -1095,8 +1179,8 @@ assertEquals("[x, y, z]", pb.command().toString());
                 // String constructors have optimized StringFactory methods
                 // that matches returned type. These factory methods combine the
                 // memory allocation and initialization calls for String objects.
-                mh = new MethodHandleImpl(constructor.getArtMethod(), MethodHandle.INVOKE_DIRECT,
-                                          constructorType);
+                mh = new MethodHandleImpl(findStringFactoryMethod(constructor).getArtMethod(),
+                        MethodHandle.INVOKE_STATIC, constructorType);
             } else {
                 // Constructors for all other classes use a Construct transformer to perform
                 // their memory allocation and call to <init>.

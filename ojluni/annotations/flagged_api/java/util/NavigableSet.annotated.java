@@ -55,7 +55,7 @@ public E pollFirst();
 
 public E pollLast();
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public java.util.Iterator<E> iterator();
 
 public java.util.NavigableSet<E> descendingSet();
@@ -78,7 +78,7 @@ public default E removeFirst() { throw new RuntimeException("Stub!"); }
 
 public default E removeLast() { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public default java.util.NavigableSet<E> reversed() { throw new RuntimeException("Stub!"); }
 }
 

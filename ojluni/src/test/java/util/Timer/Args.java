@@ -145,7 +145,16 @@ latch));
         }
         final CountDownLatch y1 = new OneShotLatch();
         final CountDownLatch y2 = new FixedDelayLatch();
-        final CountDownLatch y3 = new FixedRateLatch();
+        final CountDownLatch y3;
+        // Android-changed: handle go/scheduleAtFixedRate-behavior-change
+        if (!Timer.skipMultipleMissedPeriodicTasks()) {
+            // We will schedule a fixed rate task such that we missed 11 periods
+            // and expect to see 11 immediate "catch up" executions.
+            y3 = new FixedRateLatch();
+        } else {
+            // We expect to see exactly one immediate "catch up" execution.
+            y3 = new OneShotLatch();
+        }
 
         final long start = System.currentTimeMillis();
         final Date past = new Date(start - (10 * DELAY_MS + DELAY_MS / 2));

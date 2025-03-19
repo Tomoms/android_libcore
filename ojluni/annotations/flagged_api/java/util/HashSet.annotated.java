@@ -59,7 +59,7 @@ public java.lang.Object[] toArray() { throw new RuntimeException("Stub!"); }
 
 public <T> T[] toArray(T[] a) { throw new RuntimeException("Stub!"); }
 
-@android.annotation.FlaggedApi(com.android.libcore.Flags.FLAG_V_APIS)
+
 public static <T> java.util.HashSet<T> newHashSet(int numElements) { throw new RuntimeException("Stub!"); }
 }
 

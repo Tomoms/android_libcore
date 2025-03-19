@@ -32,6 +32,7 @@
  */
 
 package test.java.util.concurrent.tck;
+
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
@@ -45,6 +46,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
@@ -109,7 +111,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
         }
     }
 
-    void checkNotDone(ForkJoinTask a) {
+    void checkNotDone(ForkJoinTask<?> a) {
         assertFalse(a.isDone());
         assertFalse(a.isCompletedNormally());
         assertFalse(a.isCompletedAbnormally());
@@ -118,7 +120,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
         assertNull(a.getRawResult());
 
         try {
-            a.get(0L, SECONDS);
+            a.get(randomExpiredTimeout(), randomTimeUnit());
             shouldThrow();
         } catch (TimeoutException success) {
         } catch (Throwable fail) { threadUnexpectedException(fail); }
@@ -128,19 +130,19 @@ public class ForkJoinTaskTest extends JSR166TestCase {
         checkCompletedNormally(a, null);
     }
 
-    <T> void checkCompletedNormally(ForkJoinTask<T> a, T expected) {
+    <T> void checkCompletedNormally(ForkJoinTask<T> a, T expectedValue) {
         assertTrue(a.isDone());
         assertFalse(a.isCancelled());
         assertTrue(a.isCompletedNormally());
         assertFalse(a.isCompletedAbnormally());
         assertNull(a.getException());
-        assertSame(expected, a.getRawResult());
+        assertSame(expectedValue, a.getRawResult());
 
         {
             Thread.currentThread().interrupt();
             long startTime = System.nanoTime();
-            assertSame(expected, a.join());
-            assertTrue(millisElapsedSince(startTime) < SMALL_DELAY_MS);
+            assertSame(expectedValue, a.join());
+            assertTrue(millisElapsedSince(startTime) < LONG_DELAY_MS);
             Thread.interrupted();
         }
 
@@ -148,21 +150,23 @@ public class ForkJoinTaskTest extends JSR166TestCase {
             Thread.currentThread().interrupt();
             long startTime = System.nanoTime();
             a.quietlyJoin();        // should be no-op
-            assertTrue(millisElapsedSince(startTime) < SMALL_DELAY_MS);
+            assertTrue(millisElapsedSince(startTime) < LONG_DELAY_MS);
             Thread.interrupted();
         }
 
         assertFalse(a.cancel(false));
         assertFalse(a.cancel(true));
+
+        T v1 = null, v2 = null;
         try {
-            assertSame(expected, a.get());
+            v1 = a.get();
+            v2 = a.get(randomTimeout(), randomTimeUnit());
         } catch (Throwable fail) { threadUnexpectedException(fail); }
-        try {
-            assertSame(expected, a.get(5L, SECONDS));
-        } catch (Throwable fail) { threadUnexpectedException(fail); }
+        assertSame(expectedValue, v1);
+        assertSame(expectedValue, v2);
     }
 
-    void checkCancelled(ForkJoinTask a) {
+    void checkCancelled(ForkJoinTask<?> a) {
         assertTrue(a.isDone());
         assertTrue(a.isCancelled());
         assertFalse(a.isCompletedNormally());
@@ -183,7 +187,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
         {
             long startTime = System.nanoTime();
             a.quietlyJoin();        // should be no-op
-            assertTrue(millisElapsedSince(startTime) < SMALL_DELAY_MS);
+            assertTrue(millisElapsedSince(startTime) < LONG_DELAY_MS);
         }
 
         try {
@@ -193,13 +197,13 @@ public class ForkJoinTaskTest extends JSR166TestCase {
         } catch (Throwable fail) { threadUnexpectedException(fail); }
 
         try {
-            a.get(5L, SECONDS);
+            a.get(randomTimeout(), randomTimeUnit());
             shouldThrow();
         } catch (CancellationException success) {
         } catch (Throwable fail) { threadUnexpectedException(fail); }
     }
 
-    void checkCompletedAbnormally(ForkJoinTask a, Throwable t) {
+    void checkCompletedAbnormally(ForkJoinTask<?> a, Throwable t) {
         assertTrue(a.isDone());
         assertFalse(a.isCancelled());
         assertFalse(a.isCompletedNormally());
@@ -221,7 +225,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
         {
             long startTime = System.nanoTime();
             a.quietlyJoin();        // should be no-op
-            assertTrue(millisElapsedSince(startTime) < SMALL_DELAY_MS);
+            assertTrue(millisElapsedSince(startTime) < LONG_DELAY_MS);
         }
 
         try {
@@ -232,7 +236,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
         } catch (Throwable fail) { threadUnexpectedException(fail); }
 
         try {
-            a.get(5L, SECONDS);
+            a.get(randomTimeout(), randomTimeUnit());
             shouldThrow();
         } catch (ExecutionException success) {
             assertSame(t.getClass(), success.getCause().getClass());
@@ -512,7 +516,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
                 AsyncFib f = new AsyncFib(8);
                 assertSame(f, f.fork());
                 try {
-                    f.get(5L, null);
+                    f.get(randomTimeout(), null);
                     shouldThrow();
                 } catch (NullPointerException success) {}
             }};
@@ -546,6 +550,8 @@ public class ForkJoinTaskTest extends JSR166TestCase {
                 AsyncFib f = new AsyncFib(8);
                 assertSame(f, f.fork());
                 helpQuiesce();
+                while (!f.isDone()) // wait out race
+                    ;
                 assertEquals(21, f.number);
                 assertEquals(0, getQueuedTaskCount());
                 checkCompletedNormally(f);
@@ -925,7 +931,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
                 AsyncFib f = new AsyncFib(8);
                 AsyncFib g = new AsyncFib(9);
                 AsyncFib h = new AsyncFib(7);
-                HashSet set = new HashSet();
+                HashSet<ForkJoinTask<?>> set = new HashSet<>();
                 set.add(f);
                 set.add(g);
                 set.add(h);
@@ -967,7 +973,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
             protected void realCompute() {
                 AsyncFib f = new AsyncFib(8);
                 FailingAsyncFib g = new FailingAsyncFib(9);
-                ForkJoinTask[] tasks = { f, g };
+                ForkJoinTask<?>[] tasks = { f, g };
                 shuffle(tasks);
                 try {
                     invokeAll(tasks);
@@ -1007,7 +1013,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
                 AsyncFib f = new AsyncFib(8);
                 FailingAsyncFib g = new FailingAsyncFib(9);
                 AsyncFib h = new AsyncFib(7);
-                ForkJoinTask[] tasks = { f, g, h };
+                ForkJoinTask<?>[] tasks = { f, g, h };
                 shuffle(tasks);
                 try {
                     invokeAll(tasks);
@@ -1029,7 +1035,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
                 FailingAsyncFib f = new FailingAsyncFib(8);
                 AsyncFib g = new AsyncFib(9);
                 AsyncFib h = new AsyncFib(7);
-                ForkJoinTask[] tasks = { f, g, h };
+                ForkJoinTask<?>[] tasks = { f, g, h };
                 shuffle(tasks);
                 try {
                     invokeAll(Arrays.asList(tasks));
@@ -1302,7 +1308,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
                 AsyncFib f = new AsyncFib(8);
                 assertSame(f, f.fork());
                 try {
-                    f.get(5L, null);
+                    f.get(randomTimeout(), null);
                     shouldThrow();
                 } catch (NullPointerException success) {}
             }};
@@ -1631,7 +1637,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
                 AsyncFib f = new AsyncFib(8);
                 AsyncFib g = new AsyncFib(9);
                 AsyncFib h = new AsyncFib(7);
-                HashSet set = new HashSet();
+                HashSet<ForkJoinTask<?>> set = new HashSet<>();
                 set.add(f);
                 set.add(g);
                 set.add(h);
@@ -1673,7 +1679,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
             protected void realCompute() {
                 AsyncFib f = new AsyncFib(8);
                 FailingAsyncFib g = new FailingAsyncFib(9);
-                ForkJoinTask[] tasks = { f, g };
+                ForkJoinTask<?>[] tasks = { f, g };
                 shuffle(tasks);
                 try {
                     invokeAll(tasks);
@@ -1713,7 +1719,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
                 AsyncFib f = new AsyncFib(8);
                 FailingAsyncFib g = new FailingAsyncFib(9);
                 AsyncFib h = new AsyncFib(7);
-                ForkJoinTask[] tasks = { f, g, h };
+                ForkJoinTask<?>[] tasks = { f, g, h };
                 shuffle(tasks);
                 try {
                     invokeAll(tasks);
@@ -1735,7 +1741,7 @@ public class ForkJoinTaskTest extends JSR166TestCase {
                 FailingAsyncFib f = new FailingAsyncFib(8);
                 AsyncFib g = new AsyncFib(9);
                 AsyncFib h = new AsyncFib(7);
-                ForkJoinTask[] tasks = { f, g, h };
+                ForkJoinTask<?>[] tasks = { f, g, h };
                 shuffle(tasks);
                 try {
                     invokeAll(Arrays.asList(tasks));
@@ -1765,4 +1771,60 @@ public class ForkJoinTaskTest extends JSR166TestCase {
         testInvokeOnPool(mainPool(), a);
     }
 
+    /**
+     * adapt(runnable).toString() contains toString of wrapped task
+     */
+    @Test
+    public void testAdapt_Runnable_toString() {
+        if (testImplementationDetails) {
+            Runnable r = () -> {};
+            ForkJoinTask<?> task = ForkJoinTask.adapt(r);
+            assertEquals(
+                identityString(task) + "[Wrapped task = " + r.toString() + "]",
+                task.toString());
+        }
+    }
+
+    /**
+     * adapt(runnable, x).toString() contains toString of wrapped task
+     */
+    @Test
+    public void testAdapt_Runnable_withResult_toString() {
+        if (testImplementationDetails) {
+            Runnable r = () -> {};
+            ForkJoinTask<String> task = ForkJoinTask.adapt(r, "");
+            assertEquals(
+                identityString(task) + "[Wrapped task = " + r.toString() + "]",
+                task.toString());
+        }
+    }
+
+    /**
+     * adapt(callable).toString() contains toString of wrapped task
+     */
+    @Test
+    public void testAdapt_Callable_toString() {
+        if (testImplementationDetails) {
+            Callable<String> c = () -> "";
+            ForkJoinTask<String> task = ForkJoinTask.adapt(c);
+            assertEquals(
+                identityString(task) + "[Wrapped task = " + c.toString() + "]",
+                task.toString());
+        }
+    }
+
+
+    /**
+     * adaptInterruptible(callable).toString() contains toString of wrapped task
+     */
+    @Test
+    public void testAdaptInterruptible_Callable_toString() {
+        if (testImplementationDetails) {
+            Callable<String> c = () -> "";
+            ForkJoinTask<String> task = ForkJoinTask.adaptInterruptible(c);
+            assertEquals(
+                identityString(task) + "[Wrapped task = " + c.toString() + "]",
+                task.toString());
+        }
+    }
 }

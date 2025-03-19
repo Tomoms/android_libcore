@@ -16,10 +16,16 @@
 
 package libcore.java.util.concurrent;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -42,13 +48,107 @@ public class FutureTaskTest {
         assertFalse(callable.hasDetectedRecursiveToString());
     }
 
+    @Test
+    public void testExceptionNow_OnSuccess() {
+        TestCallable callable = new TestCallable();
+        FutureTask task = new FutureTask(callable);
+        assertThrows(IllegalStateException.class, () -> { task.exceptionNow(); });
+        task.run();
+        assertTrue(task.isDone());
+        assertThrows(IllegalStateException.class, () -> { task.exceptionNow(); });
+    }
+
+    @Test
+    public void testExceptionNow_OnCancel() {
+        TestCallable callable = new TestCallable();
+        FutureTask task = new FutureTask(callable);
+        assertThrows(IllegalStateException.class, () -> { task.exceptionNow(); });
+        task.cancel(false);
+        assertTrue(task.isCancelled());
+        assertThrows(IllegalStateException.class, () -> { task.exceptionNow(); });
+    }
+
+    @Test
+    public void testExceptionNow_OnFail() {
+        TestCallable callable = new TestCallable();
+        FutureTask task = new FutureTask(callable);
+        assertThrows(IllegalStateException.class, () -> { task.exceptionNow(); });
+        callable.failNext();
+        task.run();
+        assertTrue(task.isDone());
+        assertThat(task.exceptionNow(), instanceOf(TestException.class));
+    }
+
+    @Test
+    public void testResultNow_OnSuccess() {
+        TestCallable callable = new TestCallable();
+        FutureTask task = new FutureTask(callable);
+        assertThrows(IllegalStateException.class, () -> { task.resultNow(); });
+        task.run();
+        assertTrue(task.isDone());
+        assertEquals(Integer.valueOf(42), task.resultNow());
+    }
+
+    @Test
+    public void testResultNow_OnCancel() {
+        TestCallable callable = new TestCallable();
+        FutureTask task = new FutureTask(callable);
+        assertThrows(IllegalStateException.class, () -> { task.resultNow(); });
+        task.cancel(false);
+        assertTrue(task.isCancelled());
+        assertThrows(IllegalStateException.class, () -> { task.resultNow(); });
+    }
+
+    @Test
+    public void testResultNow_OnFail() {
+        TestCallable callable = new TestCallable();
+        FutureTask task = new FutureTask(callable);
+        assertThrows(IllegalStateException.class, () -> { task.resultNow(); });
+        callable.failNext();
+        task.run();
+        assertTrue(task.isDone());
+        assertThrows(IllegalStateException.class, () -> { task.resultNow(); });
+    }
+
+    @Test
+    public void testState_OnSuccess() {
+        TestCallable callable = new TestCallable();
+        FutureTask task = new FutureTask(callable);
+        assertEquals(Future.State.RUNNING, task.state());
+        task.run();
+        assertEquals(Future.State.SUCCESS, task.state());
+    }
+
+    @Test
+    public void testState_OnCancel() {
+        TestCallable callable = new TestCallable();
+        FutureTask task = new FutureTask(callable);
+        assertEquals(Future.State.RUNNING, task.state());
+        task.cancel(false);
+        assertEquals(Future.State.CANCELLED, task.state());
+    }
+
+    @Test
+    public void testState_OnFail() {
+        TestCallable callable = new TestCallable();
+        FutureTask task = new FutureTask(callable);
+        assertEquals(Future.State.RUNNING, task.state());
+        callable.failNext();
+        task.run();
+        assertEquals(Future.State.FAILED, task.state());
+    }
+
     static class TestCallable extends AtomicReference<FutureTask> implements Callable<Integer> {
 
         private int toStringCalls = 0;
+        private boolean fail = false;
 
         @Override
         public Integer call() throws Exception {
-            return Integer.valueOf(0);
+            if (!fail) {
+                return Integer.valueOf(42);
+            }
+            throw new TestException();
         }
 
         public boolean hasDetectedRecursiveToString() {
@@ -64,6 +164,12 @@ public class FutureTaskTest {
                 return "";
             }
         }
+
+        public void failNext() {
+            fail = true;
+        }
     }
+
+    static class TestException extends Exception { }
 
 }

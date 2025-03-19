@@ -60,4 +60,7 @@ public static boolean nonNull(@libcore.util.Nullable java.lang.Object obj) { thr
 @libcore.util.NonNull public static <T> T requireNonNullElseGet(@libcore.util.Nullable T obj, @libcore.util.NonNull java.util.function.Supplier<? extends @libcore.util.NonNull T> supplier) { throw new RuntimeException("Stub!"); }
 
 @libcore.util.NonNull public static <T> T requireNonNull(@libcore.util.Nullable T obj, @libcore.util.NonNull java.util.function.Supplier<@libcore.util.NonNull java.lang.String> messageSupplier) { throw new RuntimeException("Stub!"); }
+
+@libcore.util.NonNull public static java.lang.String toIdentityString(@libcore.util.NonNull java.lang.Object o) { throw new RuntimeException("Stub!"); }
+
 }

@@ -26,7 +26,12 @@
 package java.lang;
 
 import dalvik.annotation.optimization.NeverInline;
+
+import jdk.internal.math.DoubleToDecimal;
+import jdk.internal.math.FloatToDecimal;
 import jdk.internal.math.FloatingDecimal;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Spliterator;
 import java.util.stream.IntStream;
@@ -825,7 +830,13 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * @return  a reference to this object.
      */
     public AbstractStringBuilder append(float f) {
-        FloatingDecimal.appendTo(f,this);
+        // Android-changed: imported from Java 21.
+        // FloatingDecimal.appendTo(f,this);
+        try {
+            FloatToDecimal.appendTo(f, this);
+        } catch (IOException e) {
+            throw new AssertionError(e);
+        }
         return this;
     }
 
@@ -842,7 +853,13 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
      * @return  a reference to this object.
      */
     public AbstractStringBuilder append(double d) {
-        FloatingDecimal.appendTo(d,this);
+        // Android-changed: imported from Java 21.
+        // FloatingDecimal.appendTo(d,this);
+        try {
+            DoubleToDecimal.appendTo(d, this);
+        } catch (IOException e) {
+            throw new AssertionError(e);
+        }
         return this;
     }
 

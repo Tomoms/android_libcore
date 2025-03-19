@@ -32,55 +32,84 @@ import org.testng.Assert;
  * @author Joseph D. Darcy
  */
 public class Unsigned {
+    public static void main(String... args) {
+        int errors = 0;
 
-    @Test
-    public void testRoundtrip() {
-        int[] data = {-1, 0, 1};
+        errors += testRoundtrip();
+        errors += testByteToUnsignedInt();
+        errors += testShortToUnsignedInt();
+        errors += testUnsignedCompare();
+        errors += testToUnsignedLong();
+        errors += testToStringUnsigned();
+        errors += testParseUnsignedInt();
+        errors += testDivideAndRemainder();
 
-        for(int datum : data) {
-            Assert.assertEquals(
-                Integer.parseUnsignedInt(Integer.toBinaryString(datum), 2),
-                datum,
-                "Bad binary roundtrip conversion of " + datum);
-
-            Assert.assertEquals(Integer.parseUnsignedInt(Integer.toOctalString(datum), 8),
-                datum,
-                "Bad octal roundtrip conversion of " + datum);
-
-            Assert.assertEquals(Integer.parseUnsignedInt(Integer.toHexString(datum), 16),
-                datum,
-                "Bad hex roundtrip conversion of " + datum);
+        if (errors > 0) {
+            throw new RuntimeException(errors + " errors found in unsigned operations.");
         }
     }
 
-    @Test
-    public void testByteToUnsignedInt() {
+    private static int testRoundtrip() {
+        int errors = 0;
+
+        int[] data = {-1, 0, 1};
+
+        for(int datum : data) {
+            if (Integer.parseUnsignedInt(Integer.toBinaryString(datum), 2) != datum) {
+                errors++;
+                System.err.println("Bad binary roundtrip conversion of " + datum);
+            }
+
+            if (Integer.parseUnsignedInt(Integer.toOctalString(datum), 8) != datum) {
+                errors++;
+                System.err.println("Bad octal roundtrip conversion of " + datum);
+            }
+
+            if (Integer.parseUnsignedInt(Integer.toHexString(datum), 16) != datum) {
+                errors++;
+                System.err.println("Bad hex roundtrip conversion of " + datum);
+            }
+        }
+        return errors;
+    }
+
+    private static int testByteToUnsignedInt() {
+        int errors = 0;
+
         for(int i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; i++) {
             byte datum = (byte) i;
             int ui = Byte.toUnsignedInt(datum);
 
-            if ( (ui & (~0xff)) != 0 || ((byte)ui != datum )) {
-                Assert.fail(
-                    String.format("Bad conversion of byte %d to unsigned int %d%n", datum, ui));
+            if ( (ui & (~0xff)) != 0 ||
+                 ((byte)ui != datum )) {
+                errors++;
+                System.err.printf("Bad conversion of byte %d to unsigned int %d%n",
+                                  datum, ui);
             }
         }
+        return errors;
     }
 
-    @Test
-    public void testShortToUnsignedInt() {
+    private static int testShortToUnsignedInt() {
+        int errors = 0;
+
         for(int i = Short.MIN_VALUE; i <= Short.MAX_VALUE; i++) {
             short datum = (short) i;
             int ui = Short.toUnsignedInt(datum);
 
-            if ( (ui & (~0xffff)) != 0 || ((short)ui != datum )) {
-                Assert.fail(
-                    String.format("Bad conversion of short %d to unsigned int %d%n", datum, ui));
+            if ( (ui & (~0xffff)) != 0 ||
+                 ((short)ui != datum )) {
+                errors++;
+                System.err.printf("Bad conversion of short %d to unsigned int %d%n",
+                                  datum, ui);
             }
         }
+        return errors;
     }
 
-    @Test
-    public void testUnsignedCompare() {
+    private static int testUnsignedCompare() {
+        int errors = 0;
+
         int[] data = {
             0,
             1,
@@ -101,25 +130,32 @@ public class Unsigned {
                 int localResult      = compUnsigned(i, j);
 
                 if (i == j) {
-                    Assert.assertEquals(libraryResult, 0,
-                        String.format("Value 0x%x did not compare as " +
+                    if (libraryResult != 0) {
+                        errors++;
+                        System.err.printf("Value 0x%x did not compare as " +
                                           "an unsigned value equal to itself; got %d%n",
-                                          i, libraryResult));
+                                          i, libraryResult);
+                    }
                 }
 
-                Assert.assertEquals(Integer.signum(libraryResult),
-                    Integer.signum(localResult),
-                    String.format("Unsigned compare of 0x%x to 0x%x%n:" +
+                if (Integer.signum(libraryResult) != Integer.signum(localResult)) {
+                    errors++;
+                    System.err.printf("Unsigned compare of 0x%x to 0x%x%n:" +
                                       "\texpected sign of %d, got %d%n",
-                                      i, j, localResult, libraryResult));
+                                      i, j, localResult, libraryResult);
+                }
 
-                Assert.assertEquals(Integer.signum(libraryResult),
-                    -Integer.signum(libraryResultRev),
-                    String.format("signum(compareUnsigned(x, y)) != -signum(compareUnsigned(y,x))" +
+                if (Integer.signum(libraryResult) !=
+                    -Integer.signum(libraryResultRev)) {
+                    errors++;
+                    System.err.printf("signum(compareUnsigned(x, y)) != -signum(compareUnsigned(y,x))" +
                                       " for \t0x%x and 0x%x, computed %d and %d%n",
-                                      i, j, libraryResult, libraryResultRev));
+                                      i, j, libraryResult, libraryResultRev);
+                }
             }
         }
+
+        return errors;
     }
 
     /**
@@ -142,8 +178,9 @@ public class Unsigned {
         }
     }
 
-    @Test
-    public void testToUnsignedLong() {
+    private static int testToUnsignedLong() {
+        int errors = 0;
+
         int[] data = {
             0,
             1,
@@ -163,20 +200,26 @@ public class Unsigned {
             long result = Integer.toUnsignedLong(datum);
 
             // High-order bits should be zero
-            Assert.assertEquals(
-                (result & 0xffff_ffff_0000_0000L),
-                0L,
-                String.format("High bits set converting 0x%x to 0x%x%n", datum, result));
+            if ((result & 0xffff_ffff_0000_0000L) != 0L) {
+                errors++;
+                System.err.printf("High bits set converting 0x%x to 0x%x%n",
+                                  datum, result);
+            }
 
             // Lower-order bits should be equal to datum.
             int lowOrder = (int)(result & 0x0000_0000_ffff_ffffL);
-            Assert.assertEquals(lowOrder, datum,
-                String.format("Low bits not preserved converting 0x%x to 0x%x%n", datum, result));
+            if (lowOrder != datum ) {
+                errors++;
+                System.err.printf("Low bits not preserved converting 0x%x to 0x%x%n",
+                                  datum, result);
+            }
         }
+        return errors;
     }
 
-    @Test
-    public void testToStringUnsigned() {
+    private static int testToStringUnsigned() {
+        int errors = 0;
+
         int[] data = {
             0,
             1,
@@ -204,35 +247,41 @@ public class Unsigned {
                 String result2 = Long.toString(Integer.toUnsignedLong(datum), radix);
 
                 if (!result1.equals(result2)) {
-                    Assert.fail(String.format("Unexpected string difference converting 0x%x:" +
+                    errors++;
+                    System.err.printf("Unexpected string difference converting 0x%x:" +
                                       "\t%s %s%n",
-                                      datum, result1, result2));
+                                      datum, result1, result2);
                 }
 
                 if (radix == 10) {
                     String result3 = Integer.toUnsignedString(datum);
                     if (!result2.equals(result3)) {
-                        Assert.fail(String.format("Unexpected string difference converting 0x%x:" +
+                        errors++;
+                        System.err.printf("Unexpected string difference converting 0x%x:" +
                                           "\t%s %s%n",
-                                          datum, result3, result2));
+                                          datum, result3, result2);
                     }
                 }
 
                 int parseResult = Integer.parseUnsignedInt(result1, radix);
 
                 if (parseResult != datum) {
-                    Assert.fail(String.format("Bad roundtrip conversion of %d in base %d" +
+                    errors++;
+                        System.err.printf("Bad roundtrip conversion of %d in base %d" +
                                           "\tconverting back ''%s'' resulted in %d%n",
-                                          datum, radix, result1,  parseResult));
+                                          datum, radix, result1,  parseResult);
                 }
             }
         }
+
+        return errors;
     }
 
     private static final long MAX_UNSIGNED_INT = Integer.toUnsignedLong(0xffff_ffff);
 
-    @Test
-    public void testParseUnsignedInt() {
+    private static int testParseUnsignedInt() {
+        int errors = 0;
+
         // Values include those between signed Integer.MAX_VALUE and
         // unsignted int MAX_VALUE.
         long[] inRange = {
@@ -253,9 +302,10 @@ public class Unsigned {
                 int intResult = Integer.parseUnsignedInt(longString, radix);
 
                 if (Integer.toUnsignedLong(intResult) != value) {
-                    Assert.fail(String.format("Bad roundtrip conversion of %d in base %d" +
+                    errors++;
+                    System.err.printf("Bad roundtrip conversion of %d in base %d" +
                                       "\tconverting back ''%s'' resulted in %d%n",
-                                      value, radix, longString,  intResult));
+                                      value, radix, longString,  intResult);
                 }
 
                 // test offset based parse method
@@ -263,9 +313,10 @@ public class Unsigned {
                         "prefix".length(), "prefix".length() + longString.length(), radix);
 
                 if (Integer.toUnsignedLong(intResult) != value) {
-                    Assert.fail(String.format("Bad roundtrip conversion of %d in base %d" +
+                    errors++;
+                    System.err.printf("Bad roundtrip conversion of %d in base %d" +
                             "\tconverting back ''%s'' resulted in %d%n",
-                            value, radix, longString,  intResult));
+                            value, radix, longString,  intResult);
                 }
             }
         }
@@ -281,16 +332,20 @@ public class Unsigned {
         for(String s : outOfRange) {
             try {
                 int result = Integer.parseUnsignedInt(s);
-                Assert.fail(
-                    String.format("Unexpected got %d from an unsigned conversion of %s", result, s));
+                errors++; // Should not reach here
+                System.err.printf("Unexpected got %d from an unsigned conversion of %s",
+                                  result, s);
             } catch(NumberFormatException nfe) {
                 ; // Correct result
             }
         }
+
+        return errors;
     }
 
-    @Test
-    public void testDivideAndRemainder() {
+    private static int testDivideAndRemainder() {
+        int errors = 0;
+
         long[] inRange = {
             0L,
             1L,
@@ -314,14 +369,14 @@ public class Unsigned {
                 if (divisor == 0) {
                     try {
                         quotient = Integer.divideUnsigned((int) dividend, (int) divisor);
-                        Assert.fail("Unexpectedly did not throw");
+                        errors++;
                     } catch(ArithmeticException ea) {
                         ; // Expected
                     }
 
                     try {
                         remainder = Integer.remainderUnsigned((int) dividend, (int) divisor);
-                        Assert.fail("Unexpectedly did not throw");
+                        errors++;
                     } catch(ArithmeticException ea) {
                         ; // Expected
                     }
@@ -330,23 +385,27 @@ public class Unsigned {
                     longQuotient = dividend / divisor;
 
                     if (quotient != (int)longQuotient) {
-                        Assert.fail(String.format("Unexpected unsigned divide result %s on %s/%s%n",
+                        errors++;
+                        System.err.printf("Unexpected unsigned divide result %s on %s/%s%n",
                                           Integer.toUnsignedString(quotient),
                                           Integer.toUnsignedString((int) dividend),
-                                          Integer.toUnsignedString((int) divisor)));
+                                          Integer.toUnsignedString((int) divisor));
                     }
 
                     remainder = Integer.remainderUnsigned((int) dividend, (int) divisor);
                     longRemainder = dividend % divisor;
 
                     if (remainder != (int)longRemainder) {
-                        Assert.fail(String.format("Unexpected unsigned remainder result %s on %s%%%s%n",
+                        errors++;
+                        System.err.printf("Unexpected unsigned remainder result %s on %s%%%s%n",
                                           Integer.toUnsignedString(remainder),
                                           Integer.toUnsignedString((int) dividend),
-                                          Integer.toUnsignedString((int) divisor)));
+                                          Integer.toUnsignedString((int) divisor));
                     }
                 }
             }
         }
+
+        return errors;
     }
 }

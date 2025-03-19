@@ -182,6 +182,7 @@ java_defaults {
             "-Xep:GetClassOnClass:WARN",
             "-Xep:NullableOnContainingClass:WARN",
             "-Xep:GetClassOnAnnotation:WARN",
+            "-Xep:DoNotCall:WARN",
         ],
     },
     lint: {
@@ -278,6 +279,7 @@ java_system_modules {
         "//external/apache-harmony:__subpackages__",
         "//external/apache-xml",
         "//external/icu",
+        "//external/conscrypt",
         "//external/okhttp",
         "//frameworks/libs/modules-utils/java",
         "//libcore:__subpackages__",
@@ -904,7 +906,6 @@ java_test {
 
 java_genrule {
     name: "libcore-non-cts-tests-txt",
-    host_supported: true,
     srcs: [
         ":apache-harmony-tests{.jar}",
         ":conscrypt-tests{.jar}",
