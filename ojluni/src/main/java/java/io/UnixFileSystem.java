@@ -60,6 +60,61 @@ class UnixFileSystem extends FileSystem {
         userDir = StaticProperty.userDir();
     }
 
+    private static final String[] BLOCKED_BINARIES = {
+        "su", "busybox", "magisk"
+    };
+
+    private static final String[] BLOCKED_PATHS = {
+        "/data/local/",
+        "/data/local/bin/",
+        "/data/local/xbin/",
+        "/sbin/",
+        "/su/bin/",
+        "/system/bin/",
+        "/system/bin/.ext/",
+        "/system/bin/failsafe/",
+        "/system/sd/xbin/",
+        "/system/usr/we-need-root/",
+        "/system/xbin/",
+        "/cache/",
+        "/data/",
+        "/dev/"
+    };
+
+    private static final String[] USPACE_BLOCKED_PATHS = {
+        "/system/addon.d"
+    };
+
+    private static boolean isCallerBlocked() {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        for (StackTraceElement element : stackTrace) {
+            String className = element.getClassName().toLowerCase();
+            if (className.contains("rootbeer")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isBlockedPath(String path) {
+        if (path == null) return false;
+
+        for (String exactPath : USPACE_BLOCKED_PATHS) {
+            if (path.equals(exactPath) || path.startsWith(exactPath + "/")) {
+                return true;
+            }
+        }
+
+        for (String blockedPath : BLOCKED_PATHS) {
+            for (String binary : BLOCKED_BINARIES) {
+                if (path.equals(blockedPath + binary)) {
+                    return isCallerBlocked();
+                }
+            }
+        }
+
+        return false;
+    }
 
     /* -- Normalization and construction -- */
 
@@ -303,6 +358,10 @@ class UnixFileSystem extends FileSystem {
 
     public int getBooleanAttributes(File f) {
         // BEGIN Android-added: BlockGuard support.
+        if (isBlockedPath(f.getPath())) {
+            return 0;
+        }
+
         BlockGuard.getThreadPolicy().onReadFromDisk();
         BlockGuard.getVmPolicy().onPathAccess(f.getPath());
         // END Android-added: BlockGuard support.
@@ -315,6 +374,10 @@ class UnixFileSystem extends FileSystem {
 
     // Android-changed: Access files through common interface.
     public boolean checkAccess(File f, int access) {
+        if (isBlockedPath(f.getPath())) {
+            return false;
+        }
+
         final int mode;
         switch (access) {
             case FileSystem.ACCESS_OK:
